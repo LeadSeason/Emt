@@ -2,6 +2,7 @@ from discord.ext import commands
 import discord
 import sys
 import os
+import subprocess
 # cog Template
 
 
@@ -60,6 +61,24 @@ class dev(commands.Cog):
     @dev.command()
     async def restart(self, ctx):
         await self.bot.logout()
+
+    @dev.command(name="git")
+    async def _git(self, ctx):
+
+        try:
+            print("########")
+            p = subprocess.Popen(
+                ["git", "pull"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE
+            )
+            p.wait()
+            out, err = p.communicate()
+        except Exception as e:
+            await ctx.send(e)
+        else:
+            embed = discord.Embed(title="Output", description=out)
+            await ctx.send(embed=embed)
 
     @dev.command(aliases=["l"])
     async def load(self, ctx, *, arg):
