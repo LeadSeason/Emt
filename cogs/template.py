@@ -10,7 +10,7 @@ class template(commands.Cog):
 
     @commands.command()
     async def hello(self, ctx):
-        await ctx.send("Nytkö?")
+        await ctx.send("ok please?")
 
 
 def setup(bot):
