@@ -66,19 +66,18 @@ class dev(commands.Cog):
     async def _git(self, ctx):
 
         try:
-            print("########")
-            p = subprocess.Popen(
-                ["git", "pull"],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE
-            )
-            p.wait()
-            out, err = p.communicate()
-        except Exception as e:
-            await ctx.send(e)
-        else:
+            async with ctx.typing():
+                p = subprocess.Popen(
+                    ["git", "pull"],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE
+                )
+                p.wait()
+                out, err = p.communicate()
             embed = discord.Embed(title="Output", description=str(out))
             await ctx.send(embed=embed)
+        except Exception as e:
+            await ctx.send(e)
 
     @dev.command(aliases=["l"])
     async def load(self, ctx, *, arg):
