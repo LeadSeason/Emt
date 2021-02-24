@@ -48,6 +48,7 @@ class git(commands.Cog):
                         else:
                             embed.add_field(
                                 name=f'Cog "{x}" reloaded',
+                                value=(" "),
                                 inline=False
                             )
 
