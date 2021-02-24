@@ -36,7 +36,9 @@ class git(commands.Cog):
                 else:
                     for x in jotain:
                         try:
-                            self.bot.reload_extension(x.replace(".py", ""))
+                            self.bot.reload_extension(
+                                x.replace(".py", "").replace("/", ".")
+                            )
                         except Exception as e:
                             embed.add_field(
                                 name=f'Cog "{x}" Failed to load',
