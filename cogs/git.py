@@ -14,7 +14,11 @@ class git(commands.Cog):
 
         try:
             print("########")
-            p = subprocess.Popen(["git", "pull"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            p = subprocess.Popen(
+                ["git", "pull"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE
+            )
             p.wait()
             out, err = p.communicate()
             await ctx.send(out)
