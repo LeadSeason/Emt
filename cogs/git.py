@@ -15,9 +15,8 @@ class git(commands.Cog):
         try:
             print("########")
             p = subprocess.Popen(["git", "pull"])
-            print(p.communicate())
             p.wait()
-            
+            print(p.communicate())
         except Exception as e:
             await ctx.send(e)
         else:
