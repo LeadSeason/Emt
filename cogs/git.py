@@ -1,6 +1,6 @@
 from discord.ext import commands
 import discord
-import git.cmd
+import git
 
 # cog git
 
@@ -13,7 +13,7 @@ class git(commands.Cog):
     async def _git(self, ctx):
 
         try:
-            g = git.cmd.git("./.git/")
+            g = git.cmd.Git(git_dir)
             g.pull()
         except Exception as e:
             await ctx.send(e)
