@@ -10,7 +10,7 @@ class git(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="git")
+    @commands.command(name="update")
     async def _git(self, ctx):
 
         try:

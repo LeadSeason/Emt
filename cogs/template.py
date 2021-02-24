@@ -9,8 +9,8 @@ class template(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def hello(self, ctx):
-        await ctx.send("ok please nyt toimi?")
+    async def template(self, ctx):
+        await ctx.send("This is a template")
 
 
 def setup(bot):
