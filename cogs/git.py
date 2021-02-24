@@ -24,7 +24,6 @@ class git(commands.Cog):
                 out, err = p.communicate()
                 embed = discord.Embed(title="Output", description=str(out))
                 jotain = re.findall(r"cogs/.+?.py", str(out))
-                print(jotain)
                 embed.add_field(
                     name="test stuff",
                     value=str(jotain),
@@ -39,9 +38,15 @@ class git(commands.Cog):
                             self.bot.reload_extension(
                                 x.replace(".py", "").replace("/", ".")
                             )
-                        except Exception as e:
+                        except commands.ExtensionFailed as e:
                             embed.add_field(
                                 name=f'Cog "{x}" Failed to load',
+                                value=str(e),
+                                inline=False
+                            )
+                        except Exception as e:
+                            embed.add_field(
+                                name="okei jotain muuta kusi",
                                 value=str(e),
                                 inline=False
                             )

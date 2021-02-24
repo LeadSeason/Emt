@@ -3,6 +3,8 @@ import discord
 import sys
 import os
 import subprocess
+import re
+
 # cog Template
 
 
@@ -74,7 +76,41 @@ class dev(commands.Cog):
                 )
                 p.wait()
                 out, err = p.communicate()
-            embed = discord.Embed(title="Output", description=str(out))
+                embed = discord.Embed(title="Output", description=str(out))
+                jotain = re.findall(r"cogs/.+?.py", str(out))
+                embed.add_field(
+                    name="test stuff",
+                    value=str(jotain),
+                    inline=False
+                )
+                if jotain == []:
+                    pass
+                    # sanoa että on jo up to date
+                else:
+                    for x in jotain:
+                        try:
+                            self.bot.reload_extension(
+                                x.replace(".py", "").replace("/", ".")
+                            )
+                        except commands.ExtensionFailed as e:
+                            embed.add_field(
+                                name=f'Cog "{x}" Failed to load',
+                                value=str(e),
+                                inline=False
+                            )
+                        except Exception as e:
+                            embed.add_field(
+                                name="okei jotain muuta kusi",
+                                value=str(e),
+                                inline=False
+                            )
+                        else:
+                            embed.add_field(
+                                name=f'Cog "{x}" reloaded',
+                                value=("jotain"),
+                                inline=False
+                            )
+
             await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(e)
