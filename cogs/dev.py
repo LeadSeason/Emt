@@ -77,7 +77,7 @@ class dev(commands.Cog):
         except Exception as e:
             await ctx.send(e)
         else:
-            embed = discord.Embed(title="Output", description=out)
+            embed = discord.Embed(title="Output", description=str(out))
             await ctx.send(embed=embed)
 
     @dev.command(aliases=["l"])
