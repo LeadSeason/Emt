@@ -1,6 +1,6 @@
 from discord.ext import commands
 import discord
-import git
+import subprocess
 
 # cog git
 
@@ -13,8 +13,7 @@ class git(commands.Cog):
     async def _git(self, ctx):
 
         try:
-            repo = git.Repo(self.rorepo.working_tree_dir)
-            repo.remotes.origin.pull()
+            subprocess.Popen(["git", " pull"])
         except Exception as e:
             await ctx.send(e)
         else:
