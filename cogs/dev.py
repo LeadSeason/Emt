@@ -106,7 +106,7 @@ class dev(commands.Cog):
                             )
                         else:
                             updated.join(f"Updeted {h}\n")
-
+            print(h)
             embed = discord.Embed(title="Updated:", description=updated)
             await ctx.send(embed=embed)
         except Exception as e:
