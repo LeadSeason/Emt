@@ -13,8 +13,8 @@ class git(commands.Cog):
     async def _git(self, ctx):
 
         try:
-            g = git.cmd.Git(git_dir)
-            g.pull()
+            repo = git.Repo(self.rorepo.working_tree_dir)
+            repo.remotes.origin.pull()
         except Exception as e:
             await ctx.send(e)
         else:
