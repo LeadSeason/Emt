@@ -4,8 +4,6 @@ import subprocess
 
 # cog git
 
-#idk jotain tää on testi
-
 
 class git(commands.Cog):
     def __init__(self, bot):
