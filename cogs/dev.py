@@ -71,7 +71,6 @@ class dev(commands.Cog):
 
     @dev.command(name="update")
     async def _git(self, ctx):
-
         try:
             async with ctx.typing():
                 p = subprocess.Popen(
@@ -81,19 +80,15 @@ class dev(commands.Cog):
                 )
                 p.wait()
                 out, err = p.communicate()
-                embed = discord.Embed(title="Output", description=str(out))
+
                 jotain = re.findall(r"cogs/.+?.py", str(out))
-                embed.add_field(
-                    name="test stuff",
-                    value=str(jotain),
-                    inline=False
-                )
 
                 updated = ""
                 if jotain == []:
+                    embed = discord.Embed(title="Already up to date")
                     pass
-                    # sanoa että on jo up to date
                 else:
+                    embed = discord.Embed(title="Updated:")
                     for x in jotain:
                         h = x.replace(".py", "").replace("/", ".")
                         try:
