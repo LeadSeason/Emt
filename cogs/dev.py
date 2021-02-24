@@ -50,6 +50,11 @@ class dev(commands.Cog):
                 value="List cogs",
                 inline=False
             )
+            embed.add_field(
+                name="update",
+                value="updates to master",
+                inline=False
+            )
             await ctx.send(embed=embed)
 
     @dev.command(aliases=["clear", "cls"])
@@ -64,7 +69,7 @@ class dev(commands.Cog):
     async def restart(self, ctx):
         await self.bot.logout()
 
-    @dev.command(name="git")
+    @dev.command(name="update")
     async def _git(self, ctx):
 
         try:
@@ -83,18 +88,19 @@ class dev(commands.Cog):
                     value=str(jotain),
                     inline=False
                 )
+
+                updated = ""
                 if jotain == []:
                     pass
                     # sanoa että on jo up to date
                 else:
                     for x in jotain:
+                        h = x.replace(".py", "").replace("/", ".")
                         try:
-                            self.bot.reload_extension(
-                                x.replace(".py", "").replace("/", ".")
-                            )
+                            self.bot.reload_extension(h)
                         except commands.ExtensionFailed as e:
                             embed.add_field(
-                                name=f'Cog "{x}" Failed to load',
+                                name=f'Cog "{h}" Failed to load',
                                 value=str(e),
                                 inline=False
                             )
@@ -105,11 +111,7 @@ class dev(commands.Cog):
                                 inline=False
                             )
                         else:
-                            embed.add_field(
-                                name=f'Cog "{x}" reloaded',
-                                value=("jotain"),
-                                inline=False
-                            )
+                            updated.join(f"Updeted {h}\n")
 
             await ctx.send(embed=embed)
         except Exception as e:
