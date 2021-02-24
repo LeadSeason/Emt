@@ -4,8 +4,6 @@ import subprocess
 import re
 # cog git
 
-# too
-
 
 class git(commands.Cog):
     def __init__(self, bot):
