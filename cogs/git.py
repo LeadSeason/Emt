@@ -22,14 +22,33 @@ class git(commands.Cog):
                 )
                 p.wait()
                 out, err = p.communicate()
-            embed = discord.Embed(title="Output", description=str(out))
-            jotain = re.findall(r"cogs/.+?.py", str(out))
-            print(jotain)
-            embed.add_field(
-                name="test stuff",
-                value=str(jotain),
-                inline=False
-            )
+                embed = discord.Embed(title="Output", description=str(out))
+                jotain = re.findall(r"cogs/.+?.py", str(out))
+                print(jotain)
+                embed.add_field(
+                    name="test stuff",
+                    value=str(jotain),
+                    inline=False
+                )
+                if jotain == []:
+                    pass
+                    # sanoa että on jo up to date
+                else:
+                    for x in jotain:
+                        try:
+                            self.bot.reload_extension(x.replace(".py", ""))
+                        except Exception as e:
+                            embed.add_field(
+                                name=f'Cog "{x}" Failed to load',
+                                value=str(e),
+                                inline=False
+                            )
+                        else:
+                            embed.add_field(
+                                name=f'Cog "{x}" reloaded',
+                                inline=False
+                            )
+
             await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(e)
