@@ -88,7 +88,6 @@ class dev(commands.Cog):
                     embed = discord.Embed(title="Already up to date")
                     pass
                 else:
-                    embed = discord.Embed(title="Updated:")
                     for x in jotain:
                         h = x.replace(".py", "").replace("/", ".")
                         try:
@@ -108,6 +107,7 @@ class dev(commands.Cog):
                         else:
                             updated.join(f"Updeted {h}\n")
 
+            embed = discord.Embed(title="Updated:", description=updated)
             await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(e)
