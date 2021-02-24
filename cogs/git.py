@@ -1,7 +1,7 @@
 from discord.ext import commands
 import discord
 import subprocess
-
+import re
 # cog git
 
 # this is a test
@@ -15,19 +15,24 @@ class git(commands.Cog):
     async def _git(self, ctx):
 
         try:
-            print("########")
-            p = subprocess.Popen(
-                ["git", "pull"],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE
+            async with ctx.typing():
+                p = subprocess.Popen(
+                    ["git", "pull"],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE
+                )
+                p.wait()
+                out, err = p.communicate()
+            embed = discord.Embed(title="Output", description=str(out))
+            jotain = re.findall(r"cogs/.+?.py")
+            embed.add_field(
+                name="test stuff",
+                value=str(jotain),
+                inline=False
             )
-            p.wait()
-            out, err = p.communicate()
-            await ctx.send(out)
+            await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(e)
-        else:
-            await ctx.send("Success")
 
 
 def setup(bot):
