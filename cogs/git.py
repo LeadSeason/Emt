@@ -1,6 +1,6 @@
 from discord.ext import commands
 import discord
-import git
+import git.cmd
 
 # cog git
 
@@ -9,8 +9,8 @@ class git(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
-    async def hello(self, ctx):
+    @commands.command(name="git")
+    async def _git(self, ctx):
 
         try:
             g = git.cmd.git("./.git/")
