@@ -13,9 +13,11 @@ class git(commands.Cog):
     async def _git(self, ctx):
 
         try:
+            print("########")
             p = subprocess.Popen(["git", "pull"])
-            p.wait()
             print(p.communicate())
+            p.wait()
+            
         except Exception as e:
             await ctx.send(e)
         else:
