@@ -22,7 +22,7 @@ class git(commands.Cog):
                 p.wait()
                 out, err = p.communicate()
             embed = discord.Embed(title="Output", description=str(out))
-            jotain = re.findall(r"cogs/.+?.py")
+            jotain = re.findall(r"cogs/.+?.py", out)
             embed.add_field(
                 name="test stuff",
                 value=str(jotain),
