@@ -1,7 +1,7 @@
 from discord.ext import commands
 import discord
 
-# cog template
+# cog test
 
 
 class template(commands.Cog):
