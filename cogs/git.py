@@ -4,13 +4,13 @@ import subprocess
 import re
 # cog git
 
-# jotain
 
 class git(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="update")
+    @commands.command(name="git")
+    @commands.is_owner()
     async def _git(self, ctx):
 
         try:
