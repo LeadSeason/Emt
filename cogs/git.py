@@ -13,7 +13,7 @@ class git(commands.Cog):
     async def _git(self, ctx):
 
         try:
-            subprocess.Popen(["git", " pull"])
+            subprocess.Popen(["git", "pull"])
         except Exception as e:
             await ctx.send(e)
         else:
