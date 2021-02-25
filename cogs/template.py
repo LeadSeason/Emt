@@ -10,7 +10,7 @@ class template(commands.Cog):
 
     @commands.command()
     async def template(self, ctx):
-        await ctx.send("totot")
+        await ctx.send("a")
 
 
 def setup(bot):
