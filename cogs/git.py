@@ -29,7 +29,7 @@ class git(commands.Cog):
                 pass
             else:
                 for x in jotain and jotain2:
-                    print(x)
+                    await ctx.send(x)
                     """
                     embed = discord.Embed(
                         title="Updated:",
