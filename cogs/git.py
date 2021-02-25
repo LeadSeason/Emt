@@ -21,7 +21,7 @@ class git(commands.Cog):
             p.wait()
             out, err = p.communicate()
             idk_this_is_fucking_stupuid = open("./data/git_temp.txt", "r")
-            idk_this_is_fucking_stupuid.write(out)
+            idk_this_is_fucking_stupuid.write(str(out))
             idk_this_is_fucking_stupuid.close
             idk_this_is_fucking_stupuid = open("./data/git_temp.txt")
             out = idk_this_is_fucking_stupuid.read()
