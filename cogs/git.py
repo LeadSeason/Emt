@@ -28,13 +28,13 @@ class git(commands.Cog):
                 embed = discord.Embed(title="Already up to date")
                 pass
             else:
-                for x in jotain and jotain2:
-                    await ctx.send(x)
-                    """
+                idk = 0
+                for x in jotain:
                     embed = discord.Embed(
                         title="Updated:",
                     )
                     h = x.replace(".py", "").replace("/", ".")
+                    l = jotain2[idk]
                     try:
                         self.bot.reload_extension(h)
                     except commands.ExtensionFailed as e:
@@ -52,12 +52,13 @@ class git(commands.Cog):
                     else:
                         embed.add_field(
                             name=f'Cog "{h}" updated',
-                            value="emt lisäyskset tähä vois laitaa",
+                            value=l,
                             inline=False
                         )
+                    idk += 1
 
             await ctx.send(embed=embed)
-            """
+
 
 def setup(bot):
     bot.add_cog(git(bot))
