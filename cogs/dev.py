@@ -89,6 +89,9 @@ class dev(commands.Cog):
                     pass
                 else:
                     for x in jotain:
+                        embed = discord.Embed(
+                            title="Updated:",
+                        )
                         h = x.replace(".py", "").replace("/", ".")
                         try:
                             self.bot.reload_extension(h)
@@ -105,12 +108,12 @@ class dev(commands.Cog):
                                 inline=False
                             )
                         else:
+                            embed.add_field(
+                                name=f'Cog "{h}" updated',
+                                value="emt lisäyskset tähä vois laitaa",
+                                inline=False
+                            )
                             updated += "Updeted " + h + "\n"
-
-                    embed = discord.Embed(
-                        title="Updated:",
-                        description=updated
-                    )
 
             await ctx.send(embed=embed)
         except Exception as e:
