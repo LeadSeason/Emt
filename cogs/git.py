@@ -20,9 +20,9 @@ class git(commands.Cog):
             )
             p.wait()
             out, err = p.communicate()
-
-            jotain = re.findall(r"cogs/.+?.py", str(out))
-            jotain2 = re.findall(r"\|.+?\n", str(out))
+            output = str(out)
+            jotain = re.findall(r"cogs/.+?.py", output)
+            jotain2 = re.findall(r"\|.+?\n", output)
             print(str(out))
             print(jotain)
             print(jotain2)
