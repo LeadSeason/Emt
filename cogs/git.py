@@ -12,7 +12,6 @@ class git(commands.Cog):
     @commands.command(name="git")
     @commands.is_owner()
     async def _git(self, ctx):
-
         try:
             async with ctx.typing():
                 p = subprocess.Popen(
@@ -22,25 +21,31 @@ class git(commands.Cog):
                 )
                 p.wait()
                 out, err = p.communicate()
-                embed = discord.Embed(title="Output", description=str(out))
+
                 jotain = re.findall(r"cogs/.+?.py", str(out))
-                embed.add_field(
-                    name="test stuff",
-                    value=str(jotain),
-                    inline=False
-                )
+                if "Already up to date." in out:
+                    embed = discord.Embed(
+                        title="Already up to date.",
+                        color=0x00ff00
+                        )
+                updated = ""
                 if jotain == []:
+                    embed = discord.Embed(
+                        title="No cogs where updeted",
+                        description="""
+                        but something else was updeted
+                        bot should be restarted
+                        """
+                    )
                     pass
-                    # sanoa että on jo up to date
                 else:
                     for x in jotain:
+                        h = x.replace(".py", "").replace("/", ".")
                         try:
-                            self.bot.reload_extension(
-                                x.replace(".py", "").replace("/", ".")
-                            )
+                            self.bot.reload_extension(h)
                         except commands.ExtensionFailed as e:
                             embed.add_field(
-                                name=f'Cog "{x}" Failed to load',
+                                name=f'Cog "{h}" Failed to load',
                                 value=str(e),
                                 inline=False
                             )
@@ -51,11 +56,12 @@ class git(commands.Cog):
                                 inline=False
                             )
                         else:
-                            embed.add_field(
-                                name=f'Cog "{x}" reloaded',
-                                value=("jotain"),
-                                inline=False
-                            )
+                            updated += "Updeted " + h + "\n"
+
+                    embed = discord.Embed(
+                        title="Updated:",
+                        description=updated
+                    )
 
             await ctx.send(embed=embed)
         except Exception as e:
