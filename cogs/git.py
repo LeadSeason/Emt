@@ -34,7 +34,9 @@ class git(commands.Cog):
                         title="Updated:",
                     )
                     h = x.replace(".py", "").replace("/", ".")
-                    l = jotain2[idk]
+                    _l = jotain2[idk]
+                    print(h)
+                    print(_l)
                     try:
                         self.bot.reload_extension(h)
                     except commands.ExtensionFailed as e:
@@ -52,7 +54,7 @@ class git(commands.Cog):
                     else:
                         embed.add_field(
                             name=f'Cog "{h}" updated',
-                            value=l,
+                            value=_l,
                             inline=False
                         )
                     idk += 1
