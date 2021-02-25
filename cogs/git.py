@@ -22,7 +22,7 @@ class git(commands.Cog):
             out, err = p.communicate()
 
             jotain = re.findall(r"cogs/.+?.py", str(out))
-            jotain2 = re.findall(r"|.+?\n", str(out))
+            jotain2 = re.findall(r"\|.+?\n", str(out))
             print(str(out))
             if jotain == []:
                 embed = discord.Embed(title="Already up to date")
@@ -34,7 +34,7 @@ class git(commands.Cog):
                         title="Updated:",
                     )
                     h = x.replace(".py", "").replace("/", ".")
-                    _l = jotain2[idk]
+                    _l = jotain2[idk].replace("| ", "").replace("\n", "")
                     print(h)
                     print(_l)
                     try:
