@@ -20,12 +20,6 @@ class git(commands.Cog):
             )
             p.wait()
             out, err = p.communicate()
-            idk_this_is_fucking_stupuid = open("./data/git_temp.txt", "w")
-            idk_this_is_fucking_stupuid.write(str(out))
-            idk_this_is_fucking_stupuid.close
-            idk_this_is_fucking_stupuid = open("./data/git_temp.txt")
-            out = idk_this_is_fucking_stupuid.read()
-            idk_this_is_fucking_stupuid.close()
             jotain = re.findall(r"cogs/.+?.py", str(out))
             jotain2 = re.findall(r"\|.+?\n", str(out))
             print(str(out))
