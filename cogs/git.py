@@ -12,7 +12,6 @@ class git(commands.Cog):
     @commands.command(name="git")
     @commands.is_owner()
     async def _git(self, ctx):
-        # try:
         async with ctx.typing():
             p = subprocess.Popen(
                 ["git", "pull"],
@@ -23,23 +22,18 @@ class git(commands.Cog):
             out, err = p.communicate()
 
             jotain = re.findall(r"cogs/.+?.py", str(out))
-            if "Already up to date." in out:
-                embed = discord.Embed(
-                    title="Already up to date.",
-                    color=0x00ff00
-                    )
-            updated = ""
+            jotain2 = re.findall(r"|.+?\n", str(out))
+
             if jotain == []:
-                embed = discord.Embed(
-                    title="No cogs where updeted",
-                    description="""
-                    but something else was updeted
-                    bot should be restarted
-                    """
-                )
+                embed = discord.Embed(title="Already up to date")
                 pass
             else:
-                for x in jotain:
+                for x in jotain and jotain2:
+                    print(x)
+                    """
+                    embed = discord.Embed(
+                        title="Updated:",
+                    )
                     h = x.replace(".py", "").replace("/", ".")
                     try:
                         self.bot.reload_extension(h)
@@ -56,18 +50,23 @@ class git(commands.Cog):
                             inline=False
                         )
                     else:
-                        updated += "Updeted " + h + "\n"
+                        embed.add_field(
+                            name=f'Cog "{h}" updated',
+                            value="emt lisäyskset tähä vois laitaa",
+                            inline=False
+                        )
 
-                embed = discord.Embed(
-                    title="Updated:",
-                    description=updated
-                )
-
-        await ctx.send(embed=embed)
-        """    
-        except Exception as e:
-            await ctx.send(e)
-        """
+            await ctx.send(embed=embed)
+            """
 
 def setup(bot):
     bot.add_cog(git(bot))
+
+
+"""
+b'Updating cc84127..f5c0eae\n
+Fast-forward\n
+cogs/dev.py | 22 ++++++++++++----------\n
+1 file changed, 12 insertions(+), 10 deletions(-)\n'
+"""
+# re.findall(r"|.+?\n", str(out))
