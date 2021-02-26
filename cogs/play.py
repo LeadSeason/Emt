@@ -64,7 +64,7 @@ class play(commands.Cog):
         if arg is None:
             await ctx.send(f"You rolled {random.randint(0, 100)}!")
         else:
-            ints = map(int, re.findall(r"\d+", arg))
+            ints = list(map(int, re.findall(r"\d+", arg)))
             await ctx.send(str(ints))
 
 
