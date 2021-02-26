@@ -6,7 +6,7 @@ import json
 import requests
 import datetime
 from bs4 import BeautifulSoup as Soup
-
+import aiohttp
 # cog Foodlist
 
 
@@ -18,7 +18,8 @@ class foodlist(commands.Cog):
     def generate_jsonfile(self):
         try:
             url = "https://www.kpedu.fi/palvelut/ravintolat-ja-ruokalistat/menuetti-ja-pikkumenuetti-opiskelijaravintolat"
-            data = requests.get(url)
+            with aiohttp.ClientSession() as session:
+                data = session.get(url)
 
             c = Soup(data.content, "html.parser")
             c = c.find_all("div", class_="content-expanded-list")
@@ -97,8 +98,8 @@ class foodlist(commands.Cog):
                 skip = True
 
         else:
-            if time.time() - file_stat > 3600:
-                h = self.generate_jsonfile()
+            if time.time() - file_stat > 2:
+                h = await self.generate_jsonfile()
                 if h == "error":
                     await ctx.channel.send(
                         "there was a error while making the json file")
