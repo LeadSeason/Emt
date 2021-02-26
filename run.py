@@ -1,4 +1,4 @@
-import logging as log
+import logging
 import subprocess
 import json
 
@@ -14,12 +14,12 @@ def run_command(data):
     p.wait()
 
 
-log.basicConfig(format='%(levelname)s:%(message)s')
+logging.basicConfig(format='%(levelname)s:%(message)s')
 try:
     from bot import bot
 except ModuleNotFoundError:
-    log.error("Bot isn't installed")
-    log.info("installing...")
+    logging.error("Bot isn't installed")
+    logging.info("installing...")
     repo = "https://" + get_conf("username") + ":"
     repo = repo + get_conf("token") + "@" + get_conf("repo")
     run_command("git clone " + repo)

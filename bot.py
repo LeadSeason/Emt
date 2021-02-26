@@ -1,11 +1,34 @@
 import json
 import importlib
 import os
+import logging
+import discord
+import datetime
 from discord.ext import commands
 
 
 class bot():
     def __init__(self):
+        dt = datetime.datetime.today()
+        filenamestart = dt.year + "-" + dt.month + "-" + dt.day
+        for x in range(9999):
+            filename = filenamestart + "-" + str(x) + ".log"
+            print(filename)
+            if not os.path.exists("./logs/" + filename):
+                break
+
+        self.logger = logging.getLogger('discord')
+        self.logger.setLevel(logging.DEBUG)
+        self.handler = logging.FileHandler(
+            filename=filename,
+            encoding='utf-8',
+            mode='w'
+            )
+        self.handler.setFormatter(logging.Formatter(
+            '%(asctime)s:%(levelname)s:%(name)s: %(message)s'
+            ))
+        self.logger.addHandler(self.handler)
+
         self.bot = commands.Bot(command_prefix=";")
         self.bot_cog_load()
         self.bot.run(str(self.get_token()))
