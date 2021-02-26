@@ -62,13 +62,13 @@ class play(commands.Cog):
     @commands.command()
     async def roll(self, ctx, *, arg=[1, 100]):
         if type(arg) is str:
-            ints = [*map(int, re.findall(r"\d+", arg))]
+            ints = list(map(int, re.findall(r"\d+", arg)))
         else:
             ints = arg
         if not len(ints) == 2:
             embed = discord.Embed(
                 title="Too many or little args",
-                description="example: ;roll 1-100\n" + str(ints)
+                description="example: ;roll 1-100\n" + str(ints) + "\n" + arg
             )
             await ctx.send(embed=embed)
 
