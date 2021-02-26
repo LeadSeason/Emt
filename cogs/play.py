@@ -3,6 +3,7 @@ import discord
 import random
 import asyncio
 import re
+import subprocess
 # cog template
 
 
@@ -81,6 +82,17 @@ class play(commands.Cog):
                 else:
                     await ctx.send(f"You rolled {randint}!")
 
+    @commands.command()
+    async def test(self, ctx):
+        
+        p = subprocess.Popen(
+            ["python3", "./utils/ytapi.py"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
+        p.wait()
+        out, err = p.communicate()
+        await ctx.send(out)
 
 def setup(bot):
     bot.add_cog(play(bot))
