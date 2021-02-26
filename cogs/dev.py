@@ -82,23 +82,31 @@ class dev(commands.Cog):
                 out, err = p.communicate()
 
                 jotain = re.findall(r"cogs/.+?.py", str(out))
+                jotain2 = re.findall(r"\|.+?\\n", str(out))
 
-                updated = ""
                 if jotain == []:
                     embed = discord.Embed(title="Already up to date")
                     pass
                 else:
-                    for x in jotain:
+                    for x, k in zip(jotain, jotain2):
                         embed = discord.Embed(
                             title="Updated:",
                         )
                         h = x.replace(".py", "").replace("/", ".")
+                        _l = k.replace("| ", "").replace("\\n", "")
+
                         try:
                             self.bot.reload_extension(h)
                         except commands.ExtensionFailed as e:
                             embed.add_field(
                                 name=f'Cog "{h}" Failed to load',
                                 value=str(e),
+                                inline=False
+                            )
+                        except commands.ExtensionAlreadyLoaded:
+                            embed.add_field(
+                                name=f'Cog "{h}" Was updated but not loaded',
+                                value=str(_l),
                                 inline=False
                             )
                         except Exception as e:
@@ -110,12 +118,11 @@ class dev(commands.Cog):
                         else:
                             embed.add_field(
                                 name=f'Cog "{h}" updated',
-                                value="emt lisäyskset tähä vois laitaa",
+                                value=_l,
                                 inline=False
                             )
-                            updated += "Updeted " + h + "\n"
 
-            await ctx.send(embed=embed)
+                await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(e)
 
