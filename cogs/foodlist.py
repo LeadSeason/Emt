@@ -3,7 +3,6 @@ import discord
 import time
 import os
 import json
-import requests
 import datetime
 from bs4 import BeautifulSoup as Soup
 import aiohttp
@@ -13,14 +12,9 @@ import aiohttp
 class foodlist(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.generate_jsonfile()
 
-    def generate_jsonfile(self):
+    def generate_jsonfile(self, data):
         try:
-            url = "https://www.kpedu.fi/palvelut/ravintolat-ja-ruokalistat/menuetti-ja-pikkumenuetti-opiskelijaravintolat"
-            with aiohttp.ClientSession() as session:
-                data = session.get(url)
-
             c = Soup(data.content, "html.parser")
             c = c.find_all("div", class_="content-expanded-list")
             c = Soup(str(c), "html.parser")
@@ -87,23 +81,28 @@ class foodlist(commands.Cog):
     @commands.command(aliases=["fl", "sapuska"])
     async def foodlist(self, ctx, *args):
         skip = False
+        url = "https://www.kpedu.fi/palvelut/ravintolat-ja-ruokalistat/menuetti-ja-pikkumenuetti-opiskelijaravintolat"
         try:
             file_stat = os.stat("./data/foods.json").st_mtime
 
         except FileNotFoundError:
-            h = self.generate_jsonfile(ctx.author)
-            if h == "error":
-                await ctx.channel.send(
-                    "there was a error while making the json file")
-                skip = True
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as r:
+                    h = self.generate_jsonfile(r)
+                    if h == "error":
+                        await ctx.channel.send(
+                            "there was a error while making the json file")
+                        skip = True
 
         else:
-            if time.time() - file_stat > 2:
-                h = self.generate_jsonfile()
-                if h == "error":
-                    await ctx.channel.send(
-                        "there was a error while making the json file")
-                    skip = True
+            if time.time() - file_stat > 3600:
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(url) as r:
+                        h = self.generate_jsonfile(r)
+                        if h == "error":
+                            await ctx.channel.send(
+                                "there was a error while making the json file")
+                            skip = True
 
         sapuska = ""
 
@@ -230,5 +229,3 @@ class foodlist(commands.Cog):
 
 def setup(bot):
     bot.add_cog(foodlist(bot))
-
-# test
