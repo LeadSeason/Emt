@@ -82,9 +82,9 @@ class play(commands.Cog):
                 else:
                     await ctx.send(f"You rolled {randint}!")
 
-    @commands.command()
-    async def test(self, ctx):
-        
+    @commands.command(aliases=["randomytvid"])
+    async def ryt(self, ctx):
+
         p = subprocess.Popen(
             ["python3", "./utils/ytapi.py"],
             stdout=subprocess.PIPE,
@@ -93,6 +93,7 @@ class play(commands.Cog):
         p.wait()
         out, err = p.communicate()
         await ctx.send(out)
+
 
 def setup(bot):
     bot.add_cog(play(bot))
