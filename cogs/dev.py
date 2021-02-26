@@ -87,7 +87,13 @@ class dev(commands.Cog):
                 if "Already up to date" in str(out):
                     embed = discord.Embed(title="Already up to date")
                 elif jotain == []:
-                    embed = discord.Embed(title="No cogs where updated")
+                    embed = discord.Embed(
+                        title="No cogs where updated",
+                        description="""
+                        Something in the main script must have updated
+                        Bot should be restarted to update the main script
+                        """
+                    )
                     pass
                 else:
                     for x, k in zip(jotain, jotain2):
