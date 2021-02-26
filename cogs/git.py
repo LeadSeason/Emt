@@ -12,7 +12,6 @@ class git(commands.Cog):
     @commands.command(name="git")
     @commands.is_owner()
     async def _git(self, ctx):
-        ctx.typing()
         p = subprocess.Popen(
             ["git", "pull"],
             stdout=subprocess.PIPE,
@@ -23,9 +22,7 @@ class git(commands.Cog):
 
         jotain = re.findall(r"cogs/.+?.py", str(out))
         jotain2 = re.findall(r"\|.+?\\n", str(out))
-        print(str(out))
-        print(jotain)
-        print(jotain2)
+
         if jotain == []:
             embed = discord.Embed(title="Already up to date")
             pass
@@ -37,8 +34,7 @@ class git(commands.Cog):
                 )
                 h = x.replace(".py", "").replace("/", ".")
                 _l = k.replace("| ", "").replace("\\n", "")
-                print(h)
-                print(_l)
+
                 try:
                     self.bot.reload_extension(h)
                 except commands.ExtensionFailed as e:
