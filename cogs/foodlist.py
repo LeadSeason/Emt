@@ -17,11 +17,11 @@ class foodlist(commands.Cog):
         self.bot = bot
 
     async def generate_jsonfile(self):
-        #try:
+        # try:
         url = "https://www.kpedu.fi/palvelut/ravintolat-ja-ruokalistat/menuetti-ja-pikkumenuetti-opiskelijaravintolat"
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as r:
-                data = await r.read()
+                data = await r
         """
         data = requests.get(url)
         """
