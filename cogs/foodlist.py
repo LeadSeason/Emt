@@ -95,7 +95,7 @@ class foodlist(commands.Cog):
                         skip = True
 
         else:
-            if time.time() - file_stat > 3600:
+            if time.time() - file_stat > 1:
                 async with aiohttp.ClientSession() as session:
                     async with session.get(url) as r:
                         h = self.generate_jsonfile(r)
