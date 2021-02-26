@@ -60,22 +60,22 @@ class play(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def roll(self, ctx, *, arg=[1, 100]):
+    async def roll(self, ctx, *, arg=None):
         print(arg)
-        if type(arg) is str:
-            ints = list(map(int, re.findall(r"\d+", arg)))
-        else:
-            ints = arg
-        if not len(ints) == 2:
-            embed = discord.Embed(
-                title="Too many or little args",
-                description="example: ;roll 1-100\n" + str(ints) + "\n" + str(arg)
-            )
-            await ctx.send(embed=embed)
-
-        else:
-            randint = random.randint(ints[0], ints[1])
+        if arg is None:
+            randint = random.randint(1, 100)
             await ctx.send(f"You rolled {randint}!")
+        else:
+            ints = list(map(int, re.findall(r"\d+", arg)))
+            if not len(ints) == 2:
+                embed = discord.Embed(
+                    title="Too many or little args",
+                    description="example: ;roll 1-100\n" + str(ints) + "\n" + str(arg)
+                )
+                await ctx.send(embed=embed)
+            else:
+                randint = random.randint(ints[0], ints[1])
+                await ctx.send(f"You rolled {randint}!")
 
 
 def setup(bot):
