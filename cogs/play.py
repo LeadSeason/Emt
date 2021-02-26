@@ -2,6 +2,7 @@ from discord.ext import commands
 import discord
 import random
 import asyncio
+import re
 # cog template
 
 
@@ -60,7 +61,11 @@ class play(commands.Cog):
 
     @commands.command()
     async def roll(self, ctx, *, arg=None):
-        await ctx.send(f"You rolled {random.randint(0, 100)}!")
+        if arg is None:
+            await ctx.send(f"You rolled {random.randint(0, 100)}!")
+        else:
+            ints = map(int, re.findall(r"\d+", arg))
+            await ctx.send(str(ints))
 
 
 def setup(bot):
