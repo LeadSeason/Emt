@@ -62,7 +62,7 @@ class play(commands.Cog):
     @commands.command()
     async def roll(self, ctx, *, arg=[1, 100]):
         if type(arg) is str:
-            ints = list(map(int, re.findall(r"\d+", arg)))
+            ints = [*map(int, re.findall(r"\d+", arg))]
         else:
             ints = arg
         if not len(ints) == 2:
