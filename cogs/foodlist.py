@@ -96,7 +96,7 @@ class foodlist(commands.Cog):
             file_stat = os.stat("./data/foods.json").st_mtime
 
         except FileNotFoundError:
-            h = asyncio.run(self.generate_jsonfile())
+            h = await self.generate_jsonfile()
             if h == "error":
                 await ctx.channel.send(
                     "there was a error while making the json file")
