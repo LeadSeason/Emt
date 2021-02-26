@@ -10,7 +10,7 @@ from discord.ext import commands
 class bot():
     def __init__(self):
         dt = datetime.datetime.today()
-        filenamestart = dt.year + "-" + dt.month + "-" + dt.day
+        filenamestart = int(dt.year) + "-" + int(dt.month) + "-" + int(dt.day)
         for x in range(9999):
             filename = filenamestart + "-" + str(x) + ".log"
             print(filename)
