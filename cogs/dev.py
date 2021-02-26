@@ -181,11 +181,11 @@ class dev(commands.Cog):
 
         for x in list_:
             try:
-                self.bot.load_extension(f"cofs.{x}")
+                self.bot.load_extension(f"cogs.{x}")
             except commands.ExtensionAlreadyLoaded:
                 _loaded.append(x)
             else:
-                self.bot.unload_extension(f"cofs.{x}")
+                self.bot.unload_extension(f"cogs.{x}")
 
         for x in list_:
             _cogs = _cogs + x + "\n"
