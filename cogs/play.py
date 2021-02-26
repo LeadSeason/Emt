@@ -63,6 +63,8 @@ class play(commands.Cog):
     async def roll(self, ctx, *, arg=[1, 100]):
         if type(arg) is str:
             ints = list(map(int, re.findall(r"\d+", arg)))
+        else:
+            ints = arg
         if not len(ints) == 2:
             embed = discord.Embed(
                 title="Too many or little args",
