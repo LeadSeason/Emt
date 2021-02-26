@@ -9,25 +9,13 @@ from discord.ext import commands
 
 class bot():
     def __init__(self):
-        dt = datetime.datetime.today()
-        filenamestart = str(dt.year) + "-" + str(dt.month) + "-" + str(dt.day)
-        for x in range(9999):
-            filename = filenamestart + "-" + str(x) + ".log"
-            if not os.path.exists("./logs/" + filename):
-                break
-
-        self.logger = logging.getLogger('discord')
-        self.handler = logging.FileHandler(
-            filename="./logs/" + filename,
-            encoding='utf-8',
-            mode='w'
+        self.logging_setup()
+        self.bot = commands.Bot(
+            command_prefix=";",
+            case_insensitive=True,
+            self_bot=False,
+            help_command=None
             )
-        self.handler.setFormatter(logging.Formatter(
-            '%(asctime)s:%(levelname)s:%(name)s: %(message)s'
-            ))
-        self.logger.addHandler(self.handler)
-
-        self.bot = commands.Bot(command_prefix=";")
         self.bot_cog_load()
         self.bot.run(str(self.get_token()))
 
@@ -71,3 +59,22 @@ class bot():
                 print(e)
             else:
                 print(f"""Enabled : Cogs: "{_cog_name}" loaded""")
+
+    def logging_setup(self):
+        dt = datetime.datetime.today()
+        filenamestart = str(dt.year) + "-" + str(dt.month) + "-" + str(dt.day)
+        for x in range(9999):
+            filename = filenamestart + "-" + str(x) + ".log"
+            if not os.path.exists("./logs/" + filename):
+                break
+
+        self.logger = logging.getLogger('discord')
+        self.handler = logging.FileHandler(
+            filename="./logs/" + filename,
+            encoding='utf-8',
+            mode='w'
+            )
+        self.handler.setFormatter(logging.Formatter(
+            '%(asctime)s:%(levelname)s:%(name)s: %(message)s'
+            ))
+        self.logger.addHandler(self.handler)
