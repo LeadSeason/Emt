@@ -92,7 +92,7 @@ class play(commands.Cog):
         )
         p.wait()
         out, err = p.communicate()
-        await ctx.send(out)
+        await ctx.send(out.replace("b", "").replace("'", ""))
 
 
 def setup(bot):
