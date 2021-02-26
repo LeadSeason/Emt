@@ -13,7 +13,6 @@ class bot():
         filenamestart = str(dt.year) + "-" + str(dt.month) + "-" + str(dt.day)
         for x in range(9999):
             filename = filenamestart + "-" + str(x) + ".log"
-            print(filename)
             if not os.path.exists("./logs/" + filename):
                 break
 
