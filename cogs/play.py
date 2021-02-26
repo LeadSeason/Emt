@@ -76,11 +76,8 @@ class play(commands.Cog):
                 try:
                     randint = random.randint(ints[0], ints[1])
                 except ValueError:
-                    embed = discord.Embed(
-                        title="smaller number first then the bigger number",
-                        description="example: ;roll 1-100\n"+str(ints)
-                    )
-                    await ctx.send(embed=embed)
+                    randint = random.randint(ints[1], ints[0])
+                    await ctx.send(f"You rolled {randint}!")
                 else:
                     await ctx.send(f"You rolled {randint}!")
 
