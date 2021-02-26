@@ -84,8 +84,10 @@ class dev(commands.Cog):
                 jotain = re.findall(r"cogs/.+?.py", str(out))
                 jotain2 = re.findall(r"\|.+?\\n", str(out))
                 print(str(out))
-                if jotain == []:
+                if "Already up to date" in str(out):
                     embed = discord.Embed(title="Already up to date")
+                elif jotain == []:
+                    embed = discord.Embed(title="No cogs where updated")
                     pass
                 else:
                     for x, k in zip(jotain, jotain2):
