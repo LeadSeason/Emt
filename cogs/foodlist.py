@@ -3,18 +3,29 @@ import discord
 import time
 import os
 import json
+import requests
 import datetime
-from bs4 import BeautifulSoup as Soup
+import asyncio
 import aiohttp
+from bs4 import BeautifulSoup as Soup
+
 # cog Foodlist
 
 
 class foodlist(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        asyncio.run(self.generate_jsonfile())
 
-    def generate_jsonfile(self, data):
+    async def generate_jsonfile(self):
         try:
+            url = "https://www.kpedu.fi/palvelut/ravintolat-ja-ruokalistat/menuetti-ja-pikkumenuetti-opiskelijaravintolat"
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as r:
+                    data = r
+            """
+            data = requests.get(url)
+            """
             c = Soup(data.content, "html.parser")
             c = c.find_all("div", class_="content-expanded-list")
             c = Soup(str(c), "html.parser")
@@ -81,28 +92,23 @@ class foodlist(commands.Cog):
     @commands.command(aliases=["fl", "sapuska"])
     async def foodlist(self, ctx, *args):
         skip = False
-        url = "https://www.kpedu.fi/palvelut/ravintolat-ja-ruokalistat/menuetti-ja-pikkumenuetti-opiskelijaravintolat"
         try:
             file_stat = os.stat("./data/foods.json").st_mtime
 
         except FileNotFoundError:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(url) as r:
-                    h = self.generate_jsonfile(r)
-                    if h == "error":
-                        await ctx.channel.send(
-                            "there was a error while making the json file")
-                        skip = True
+            h = asyncio.run(self.generate_jsonfile())
+            if h == "error":
+                await ctx.channel.send(
+                    "there was a error while making the json file")
+                skip = True
 
         else:
-            if time.time() - file_stat > 1:
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(url) as r:
-                        h = self.generate_jsonfile(r)
-                        if h == "error":
-                            await ctx.channel.send(
-                                "there was a error while making the json file")
-                            skip = True
+            if time.time() - file_stat > 2:
+                h = asyncio.run(self.generate_jsonfile())
+                if h == "error":
+                    await ctx.channel.send(
+                        "there was a error while making the json file")
+                    skip = True
 
         sapuska = ""
 
