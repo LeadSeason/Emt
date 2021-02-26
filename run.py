@@ -8,15 +8,22 @@ def get_conf(data):
         return json.load(discord_conf)[data]
 
 
+def run_command(data):
+    p = subprocess.Popen(data.split())
+    p.wait()
+
+
 log.basicConfig(format='%(levelname)s:%(message)s')
 try:
     from bot import bot
 except ModuleNotFoundError:
     log.error("Bot isn't installed")
     log.info("installing...")
-    repo = "https://" + get_conf("username") + ":" + get_conf("token") + "@" + get_conf("repo")
-    p = subprocess.Popen(["git", "clone", repo, "."])
-    p.wait()
+    repo = "https://" + get_conf("username") + ":"
+    repo = repo + get_conf("token") + "@" + get_conf("repo")
+    run_command("git init")
+    run_command("git remote add origin " + repo)
+    run_command("git pull origin master")
 
 from bot import bot
 p = subprocess.Popen(["git", "pull"])
