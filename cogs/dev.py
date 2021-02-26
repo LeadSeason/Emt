@@ -63,6 +63,8 @@ class dev(commands.Cog):
 
     @dev.command(aliases=["kill", "stop"])
     async def shutdown(self, ctx):
+        await ctx.send("Shutting down")
+        print("Bot is shutting down.")
         sys.exit()
 
     @dev.command()
