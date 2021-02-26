@@ -21,7 +21,7 @@ class foodlist(commands.Cog):
             url = "https://www.kpedu.fi/palvelut/ravintolat-ja-ruokalistat/menuetti-ja-pikkumenuetti-opiskelijaravintolat"
             async with aiohttp.ClientSession() as session:
                 async with session.get(url) as r:
-                    data = await r.text()
+                    data = await r.content()
             """
             data = requests.get(url)
             """
