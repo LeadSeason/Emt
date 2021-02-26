@@ -9,7 +9,7 @@ def get_conf(data):
 
 
 def run_command(data):
-    log.info("running command" + data.split())
+    print("running command: " + data)
     p = subprocess.Popen(data.split())
     p.wait()
 
@@ -23,7 +23,8 @@ except ModuleNotFoundError:
     repo = "https://" + get_conf("username") + ":"
     repo = repo + get_conf("token") + "@" + get_conf("repo")
     run_command("git clone " + repo)
-    run_command("cp -r Emt/*")
+    run_command("cp -r /home/container/Emt/. /home/container/")
+
 
 from bot import bot
 p = subprocess.Popen(["git", "pull"])
