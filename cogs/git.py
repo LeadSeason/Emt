@@ -36,7 +36,7 @@ class git(commands.Cog):
                     title="Updated:",
                 )
                 h = x.replace(".py", "").replace("/", ".")
-                _l = k.replace("| ", "").replace("\n", "")
+                _l = k.replace("| ", "").replace("\\n", "")
                 print(h)
                 print(_l)
                 try:
