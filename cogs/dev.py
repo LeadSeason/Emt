@@ -83,7 +83,7 @@ class dev(commands.Cog):
 
                 jotain = re.findall(r"cogs/.+?.py", str(out))
                 jotain2 = re.findall(r"\|.+?\\n", str(out))
-
+                print(str(out))
                 if jotain == []:
                     embed = discord.Embed(title="Already up to date")
                     pass
