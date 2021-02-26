@@ -78,7 +78,7 @@ class play(commands.Cog):
                 except ValueError:
                     embed = discord.Embed(
                         title="smaller number first then the bigger number",
-                        description="example: ;roll 1-100"
+                        description="example: ;roll 1-100\n"+str(ints)
                     )
                     await ctx.send(embed=embed)
                 else:
