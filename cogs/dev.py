@@ -124,7 +124,7 @@ class dev(commands.Cog):
                                 inline=False
                             )
 
-                await ctx.send(embed=embed)
+            await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(e)
 
