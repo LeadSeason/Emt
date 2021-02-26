@@ -19,7 +19,7 @@ class bot():
 
         self.logger = logging.getLogger('discord')
         self.handler = logging.FileHandler(
-            filename=filename,
+            filename="./logs/" + filename,
             encoding='utf-8',
             mode='w'
             )
