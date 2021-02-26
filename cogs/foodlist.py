@@ -5,8 +5,6 @@ import os
 import json
 import requests
 import datetime
-import asyncio
-import aiohttp
 from bs4 import BeautifulSoup as Soup
 
 # cog Foodlist
@@ -15,78 +13,75 @@ from bs4 import BeautifulSoup as Soup
 class foodlist(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.generate_jsonfile()
 
-    async def generate_jsonfile(self):
-        # try:
-        url = "https://www.kpedu.fi/palvelut/ravintolat-ja-ruokalistat/menuetti-ja-pikkumenuetti-opiskelijaravintolat"
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url) as r:
-                data = r
-        """
-        data = requests.get(url)
-        """
-        c = Soup(data.content, "html.parser")
-        c = c.find_all("div", class_="content-expanded-list")
-        c = Soup(str(c), "html.parser")
-        foods = c.find_all("p")
+    def generate_jsonfile(self):
+        try:
+            url = "https://www.kpedu.fi/palvelut/ravintolat-ja-ruokalistat/menuetti-ja-pikkumenuetti-opiskelijaravintolat"
+            data = requests.get(url)
 
-        h = ""
-        for x in foods[1:]:
-            h = h + x.get_text() + "\n"
+            c = Soup(data.content, "html.parser")
+            c = c.find_all("div", class_="content-expanded-list")
+            c = Soup(str(c), "html.parser")
+            foods = c.find_all("p")
 
-        food_list = list(h.split("\n"))
-        while True:
-            try:
-                food_list.remove("\xa0")
-            except ValueError:
-                break
-        food_list.remove("")
+            h = ""
+            for x in foods[1:]:
+                h = h + x.get_text() + "\n"
 
-        list_food = []
-        date = ""
-        data = {}
-        for x in food_list:
-            if x.startswith("MAANANTAI"):
+            food_list = list(h.split("\n"))
+            while True:
+                try:
+                    food_list.remove("\xa0")
+                except ValueError:
+                    break
+            food_list.remove("")
 
-                list_food = []
-                date = "ma"
-                list_food.append(x)
-            elif x.startswith("TIISTAI"):
-                data.update({date: list_food})
-                list_food = []
-                date = "ti"
-                list_food.append(x)
-            elif x.startswith("LASKIAISTIISTAI"):
-                data.update({date: list_food})
-                list_food = []
-                date = "ti"
-                list_food.append(x)
-            elif x.startswith("KESKIVIIKKO"):
-                data.update({date: list_food})
-                list_food = []
-                date = "ke"
-                list_food.append(x)
-            elif x.startswith("TORSTAI"):
-                data.update({date: list_food})
-                list_food = []
-                date = "to"
-                list_food.append(x)
-            elif x.startswith("PERJANTA"):
-                data.update({date: list_food})
-                list_food = []
-                date = "pe"
-                list_food.append(x)
-            else:
-                list_food.append(x)
-        data.update({date: list_food})
+            list_food = []
+            date = ""
+            data = {}
+            for x in food_list:
+                if x.startswith("MAANANTAI"):
 
-        with open("./data/foods.json", 'w', encoding='utf8') as f:
-            json.dump(data, f, ensure_ascii=False)
-            # json.dump(data, f, indent=4, ensure_ascii=False)
-        return "success"
-        # except Exception as e:
-        #    print(e)
-        #    return "error"
+                    list_food = []
+                    date = "ma"
+                    list_food.append(x)
+                elif x.startswith("TIISTAI"):
+                    data.update({date: list_food})
+                    list_food = []
+                    date = "ti"
+                    list_food.append(x)
+                elif x.startswith("LASKIAISTIISTAI"):
+                    data.update({date: list_food})
+                    list_food = []
+                    date = "ti"
+                    list_food.append(x)
+                elif x.startswith("KESKIVIIKKO"):
+                    data.update({date: list_food})
+                    list_food = []
+                    date = "ke"
+                    list_food.append(x)
+                elif x.startswith("TORSTAI"):
+                    data.update({date: list_food})
+                    list_food = []
+                    date = "to"
+                    list_food.append(x)
+                elif x.startswith("PERJANTA"):
+                    data.update({date: list_food})
+                    list_food = []
+                    date = "pe"
+                    list_food.append(x)
+                else:
+                    list_food.append(x)
+            data.update({date: list_food})
+
+            with open("./data/foods.json", 'w', encoding='utf8') as f:
+                json.dump(data, f, ensure_ascii=False)
+                # json.dump(data, f, indent=4, ensure_ascii=False)
+            return "success"
+        except Exception as e:
+            print(e)
+            return "error"
 
     @commands.command(aliases=["fl", "sapuska"])
     async def foodlist(self, ctx, *args):
@@ -95,15 +90,15 @@ class foodlist(commands.Cog):
             file_stat = os.stat("./data/foods.json").st_mtime
 
         except FileNotFoundError:
-            h = await self.generate_jsonfile()
+            h = self.generate_jsonfile(ctx.author)
             if h == "error":
                 await ctx.channel.send(
                     "there was a error while making the json file")
                 skip = True
 
         else:
-            if time.time() - file_stat > 2:
-                h = await self.generate_jsonfile()
+            if time.time() - file_stat > 3600:
+                h = self.generate_jsonfile()
                 if h == "error":
                     await ctx.channel.send(
                         "there was a error while making the json file")
