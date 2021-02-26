@@ -57,18 +57,9 @@ class dev(commands.Cog):
             )
             await ctx.send(embed=embed)
 
-    @dev.command(aliases=["clear", "cls"])
-    async def console_clear(self, ctx):
-        print("\n"*500)
-
-    @dev.command(aliases=["kill", "stop"])
-    async def shutdown(self, ctx):
-        await ctx.send("Shutting down")
-        print("Bot is shutting down.")
-        sys.exit()
-
     @dev.command()
     async def restart(self, ctx):
+        await ctx.send("Shutting down")
         await self.bot.logout()
 
     @dev.command(name="update")
