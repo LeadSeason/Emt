@@ -50,15 +50,15 @@ class bot():
                 importlib.import_module(_cog_name)
                 self.bot.load_extension(_cog_name)
             except commands.ExtensionError as e:
-                print(f"""Failure: Cogs: "{_cog_name}" failed to load""")
-                print(e)
+                logging.error(f"""Failure: Cogs: "{_cog_name}" failed to load""")
+                logging.error(e)
             except NameError:
-                print(f"""Disabled: Cogs: "{_cog_name}" wasn't loaded""")
+                logging.info(f"""Disabled: Cogs: "{_cog_name}" wasn't loaded""")
             except Exception as e:
-                print(f"""Failure: Cogs: "{_cog_name}" failed to load""")
-                print(e)
+                logging.error(f"""Failure: Cogs: "{_cog_name}" failed to load""")
+                logging.error(e)
             else:
-                print(f"""Enabled : Cogs: "{_cog_name}" loaded""")
+                logging.info(f"""Enabled : Cogs: "{_cog_name}" loaded""")
 
     def logging_setup(self):
         dt = datetime.datetime.today()
