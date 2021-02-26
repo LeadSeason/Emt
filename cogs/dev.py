@@ -26,8 +26,8 @@ class dev(commands.Cog):
                 inline=False
             )
             embed.add_field(
-                name="kill",
-                value="sys.exit()",
+                name="Restart",
+                value="Restarts bot",
                 inline=False
             )
             embed.add_field(
@@ -46,7 +46,7 @@ class dev(commands.Cog):
                 inline=False
             )
             embed.add_field(
-                name="List",
+                name="ListCogs",
                 value="List cogs",
                 inline=False
             )
@@ -189,10 +189,9 @@ class dev(commands.Cog):
         embed = discord.Embed(title="Cogs List")
         embed.add_field(name="Cogs", value=_cogs, inline=True)
         embed.add_field(name="Loaded", value=_loaded_cogs, inline=True)
+        embed.add_field(name="debug", value=str(_loaded), inline=False)
         await ctx.send(embed=embed)
 
 
 def setup(bot):
     bot.add_cog(dev(bot))
-
-# test
