@@ -15,7 +15,6 @@ from bs4 import BeautifulSoup as Soup
 class foodlist(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        asyncio.run(self.generate_jsonfile())
 
     async def generate_jsonfile(self):
         try:
