@@ -69,7 +69,7 @@ class play(commands.Cog):
         if not len(ints) == 2:
             embed = discord.Embed(
                 title="Too many or little args",
-                description="example: ;roll 1-100\n" + str(ints) + "\n" + arg
+                description="example: ;roll 1-100\n" + str(ints) + "\n" + str(arg)
             )
             await ctx.send(embed=embed)
 
