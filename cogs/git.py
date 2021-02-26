@@ -47,6 +47,12 @@ class git(commands.Cog):
                             value=str(e),
                             inline=False
                         )
+                    except commands.ExtensionAlreadyLoaded:
+                        embed.add_field(
+                            name=f'Cog "{h}" Was updated but not loaded',
+                            value=str(_l),
+                            inline=False
+                        )
                     except Exception as e:
                         embed.add_field(
                             name="okei jotain muuta kusi",
