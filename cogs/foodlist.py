@@ -104,7 +104,7 @@ class foodlist(commands.Cog):
 
         else:
             if time.time() - file_stat > 2:
-                h = asyncio.run(self.generate_jsonfile())
+                h = await self.generate_jsonfile()
                 if h == "error":
                     await ctx.channel.send(
                         "there was a error while making the json file")
