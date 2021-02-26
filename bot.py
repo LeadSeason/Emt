@@ -18,7 +18,7 @@ class bot():
                 break
 
         self.logger = logging.getLogger('discord')
-        self.logger.setLevel(logging.DEBUG)
+        self.logger.setLevel(logging.INFO)
         self.handler = logging.FileHandler(
             filename=filename,
             encoding='utf-8',
