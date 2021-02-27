@@ -93,12 +93,16 @@ class play(commands.Cog):
         )
         p.wait()
         out, err = p.communicate()
-        await ctx.send(str(out).replace("b", "", 1).replace("'", ""))
+        await ctx.send(str(out).replace("b'", "", 1).replace("\\'", ""))
 
     @commands.command()
     async def uwuify(self, ctx, *, arg):
         flags = uwuify.SMILEY | uwuify.YU
         await ctx.send(uwuify.uwu(arg, flags=flags))
+
+    @commands.command()
+    async def ping(self, ctx):
+        await ctx.send(f"🏓Pong {self.bot.latancy}")
 
 
 def setup(bot):
