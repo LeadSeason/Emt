@@ -15,6 +15,7 @@ class bot():
             self_bot=False,
             help_command=None
             )
+        ready(self.bot)
         self.bot_cog_load()
         self.bot.run(str(self.get_token()))
 
@@ -48,6 +49,7 @@ class bot():
                 if x.startswith("#"):
                     disabled.remove(x)
         except FileNotFoundError:
+            disabled = []
             logging.info("No disabled list")
 
         for x in _list:
@@ -97,3 +99,9 @@ class bot():
             '%(asctime)s:%(levelname)s:%(name)s: %(message)s'
             ))
         self.logger.addHandler(self.handler)
+
+
+def ready(bot):
+    @bot.listener()
+    async def on_ready():
+        print(f"Logged in as {bot.user}")
