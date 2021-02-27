@@ -76,7 +76,8 @@ class dev(commands.Cog):
 
                 jotain = re.findall(r"cogs/.+?.py", str(out))
                 jotain2 = re.findall(r"\|.+?\\n", str(out))
-
+                print(jotain)
+                print(jotain2)
                 if "Already up to date" in str(out):
                     embed = discord.Embed(title="Already up to date")
                 elif jotain == []:
@@ -95,7 +96,8 @@ class dev(commands.Cog):
                         )
                         h = x.replace(".py", "").replace("/", ".")
                         _l = k.replace("| ", "").replace("\\n", "")
-
+                        print(h)
+                        print(_l)
                         try:
                             self.bot.reload_extension(h)
                         except commands.ExtensionFailed as e:
