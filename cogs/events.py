@@ -14,7 +14,7 @@ class template(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if "is this bot smart" in message.content().lower:
+        if "is this bot smart" in str(message.content).lower:
             await message.channel.send("Hell yeah I am!")
 
 
