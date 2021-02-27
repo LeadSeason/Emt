@@ -59,21 +59,21 @@ class bot():
                 importlib.import_module(_cog_name)
                 self.bot.load_extension(_cog_name)
             except commands.ExtensionError as e:
-                logging.error(
+                self.logger.error(
                     f"""Failure: Cogs: "{_cog_name}" failed to load"""
                 )
-                logging.error(e)
+                self.logger.error(e)
             except NameError:
-                logging.info(
+                self.logger.info(
                     f"""Disabled: Cogs: "{_cog_name}" wasn't loaded"""
                 )
             except Exception as e:
-                logging.error(
+                self.logger.error(
                     f"""Failure: Cogs: "{_cog_name}" failed to load"""
                 )
-                logging.error(e)
+                self.logger.error(e)
             else:
-                logging.info(f"""Enabled : Cogs: "{_cog_name}" loaded""")
+                self.logger.info(f"""Enabled : Cogs: "{_cog_name}" loaded""")
 
     def logging_setup(self):
         dt = datetime.datetime.today()
@@ -89,6 +89,7 @@ class bot():
                 break
 
         self.logger = logging.getLogger('discord')
+        self.logger.setLevel(logging.DEBUG)
         self.handler = logging.FileHandler(
             filename="./logs/" + filename,
             encoding='utf-8',
