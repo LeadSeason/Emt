@@ -90,10 +90,10 @@ class dev(commands.Cog):
                     )
                     pass
                 else:
+                    embed = discord.Embed(
+                        title="Updated:",
+                    )
                     for x, k in zip(jotain, jotain2):
-                        embed = discord.Embed(
-                            title="Updated:",
-                        )
                         h = str(x.replace(".py", "").replace("/", "."))
                         _l = str(k.replace("| ", "").replace("\\n", ""))
                         print(h)
