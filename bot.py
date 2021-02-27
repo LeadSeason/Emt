@@ -2,7 +2,6 @@ import json
 import importlib
 import os
 import logging
-import discord
 import datetime
 from discord.ext import commands
 
@@ -50,12 +49,18 @@ class bot():
                 importlib.import_module(_cog_name)
                 self.bot.load_extension(_cog_name)
             except commands.ExtensionError as e:
-                logging.error(f"""Failure: Cogs: "{_cog_name}" failed to load""")
+                logging.error(
+                    f"""Failure: Cogs: "{_cog_name}" failed to load"""
+                )
                 logging.error(e)
             except NameError:
-                logging.info(f"""Disabled: Cogs: "{_cog_name}" wasn't loaded""")
+                logging.info(
+                    f"""Disabled: Cogs: "{_cog_name}" wasn't loaded"""
+                )
             except Exception as e:
-                logging.error(f"""Failure: Cogs: "{_cog_name}" failed to load""")
+                logging.error(
+                    f"""Failure: Cogs: "{_cog_name}" failed to load"""
+                )
                 logging.error(e)
             else:
                 logging.info(f"""Enabled : Cogs: "{_cog_name}" loaded""")
