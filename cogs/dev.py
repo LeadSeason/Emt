@@ -94,8 +94,8 @@ class dev(commands.Cog):
                         embed = discord.Embed(
                             title="Updated:",
                         )
-                        h = x.replace(".py", "").replace("/", ".")
-                        _l = k.replace("| ", "").replace("\\n", "")
+                        h = str(x.replace(".py", "").replace("/", "."))
+                        _l = str(k.replace("| ", "").replace("\\n", ""))
                         print(h)
                         print(_l)
                         try:
@@ -109,16 +109,17 @@ class dev(commands.Cog):
                         except commands.ExtensionAlreadyLoaded:
                             embed.add_field(
                                 name=f'Cog "{h}" Was updated but not loaded',
-                                value=str(_l),
+                                value=_l,
                                 inline=False
                             )
                         except Exception as e:
                             embed.add_field(
-                                name="okei jotain muuta kusi",
+                                name=f'Cog "{h}" has errors in it',
                                 value=str(e),
                                 inline=False
                             )
                         else:
+                            print("adding embed\n" + h + _l)
                             embed.add_field(
                                 name=f'Cog "{h}" updated',
                                 value=_l,
