@@ -97,7 +97,7 @@ class play(commands.Cog):
 
     @commands.command()
     async def uwuify(self, ctx, *, arg):
-        await ctx.send(uwuify.uwu())
+        await ctx.send(uwuify.uwu(arg))
 
 
 def setup(bot):
