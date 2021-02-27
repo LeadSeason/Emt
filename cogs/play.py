@@ -4,6 +4,7 @@ import random
 import asyncio
 import re
 import subprocess
+import uwuify
 # cog template
 
 
@@ -93,6 +94,10 @@ class play(commands.Cog):
         p.wait()
         out, err = p.communicate()
         await ctx.send(str(out).replace("b", "", 1).replace("'", ""))
+
+    @commands.command()
+    async def uwuify(self, ctx, *, arg):
+        await ctx.send(uwuify.uwu())
 
 
 def setup(bot):

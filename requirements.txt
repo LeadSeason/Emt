@@ -1,1 +1,4 @@
 discord
+bs4
+requests
+uwuify
