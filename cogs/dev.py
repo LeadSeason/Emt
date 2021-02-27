@@ -126,7 +126,11 @@ class dev(commands.Cog):
                                 value=_l,
                                 inline=False
                             )
-
+            embed.add_field(
+                name='debug',
+                value=out,
+                inline=False
+            )
             await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(e)
