@@ -79,7 +79,7 @@ class bot():
         filenamestart = str(dt.year) + "-" + str(dt.month) + "-" + str(dt.day)
 
         if not os.path.exists("./logs/"):
-            print("No logs folder. makeing logs folder...")
+            print("No logs folder. making logs folder...")
             os.mkdir("./logs/")
 
         for x in range(9999):
