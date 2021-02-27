@@ -1,2 +1,4 @@
 /conf
 /__pycache__
+/data
+/logs
