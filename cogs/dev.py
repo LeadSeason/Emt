@@ -135,6 +135,8 @@ class dev(commands.Cog):
         except Exception as e:
             await ctx.send(e)
 
+# b'Updating 5460d4e..adc0b3a\nFast-forward\n bot.py | 2 ++\n 1 file changed, 2 insertions(+)\n'
+
     @dev.command(aliases=["l"])
     async def load(self, ctx, *, arg):
         cogs_arg = "cogs." + arg
