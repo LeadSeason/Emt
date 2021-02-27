@@ -23,10 +23,18 @@ class bot():
             return json.load(discord_conf)["token"]
 
     def bot_cog_load(self):
-        with open("./cogs/.disabled") as a:
-            disabled = a.read().splitlines()
+        try:
+            with open("./cogs/.disabled") as a:
+                disabled = a.read().splitlines()
+        except FileNotFoundError:
+            logging.info("No disabled list")
 
-        h = os.scandir("./cogs")
+        try:
+            h = os.scandir("./cogs")
+        except FileNotFoundError:
+            logging.error("No ./cogs/ folder can't load cogs")
+            return
+
         _list = []
         for x in h:
             if x.is_file():
@@ -37,9 +45,9 @@ class bot():
         except Exception:
             pass
 
-        for cube in disabled:
-            if cube.startswith("#"):
-                disabled.remove(cube)
+        for x in disabled:
+            if x.startswith("#"):
+                disabled.remove(x)
 
         for x in _list:
             try:
@@ -68,6 +76,11 @@ class bot():
     def logging_setup(self):
         dt = datetime.datetime.today()
         filenamestart = str(dt.year) + "-" + str(dt.month) + "-" + str(dt.day)
+
+        if not os.path.exists("./logs/"):
+            print("No logs folder. makeing logs folder...")
+            os.mkdir("./logs/")
+
         for x in range(9999):
             filename = filenamestart + "-" + str(x) + ".log"
             if not os.path.exists("./logs/" + filename):
@@ -83,6 +96,3 @@ class bot():
             '%(asctime)s:%(levelname)s:%(name)s: %(message)s'
             ))
         self.logger.addHandler(self.handler)
-
-
-

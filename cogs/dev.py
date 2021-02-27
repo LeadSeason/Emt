@@ -14,6 +14,7 @@ class dev(commands.Cog):
     @commands.group(hidden=True)
     @commands.is_owner()
     async def dev(self, ctx):
+        print(ctx.message.content)
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(
                 title="Dev Tools",
@@ -64,81 +65,77 @@ class dev(commands.Cog):
         await self.bot.logout()
 
     @dev.command(name="update")
-    async def _git(self, ctx):
-        try:
-            async with ctx.typing():
-                p = subprocess.Popen(
-                    ["git", "pull"],
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE
+    async def _git(self, ctx, *arg):
+        if "debug" in [x.lower() for x in arg]:
+            debug = True
+
+        async with ctx.typing():
+            p = subprocess.Popen(
+                ["git", "pull"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE
+            )
+            p.wait()
+            out, err = p.communicate()
+
+            jotain = re.findall(r"cogs/.+?.py", str(out))
+            jotain2 = re.findall(r"\|.+?\\n", str(out))
+
+            if "Already up to date" in str(out):
+                embed = discord.Embed(title="Already up to date")
+
+            elif jotain == []:
+                embed = discord.Embed(
+                    title="No cogs where updated",
+                    description="""
+                    Something in the main script must have updated
+                    Bot should be restarted to update the main script
+                    """
                 )
-                p.wait()
-                out, err = p.communicate()
-                out = str(out)
+                pass
 
-                head, _, _ = out.partition('Fast-forward\\n')
+            else:
+                embed = discord.Embed(
+                    title="Updated:",
+                )
+                for x, k in zip(jotain, jotain2):
+                    h = str(x.replace(".py", "").replace("/", "."))
+                    _l = str(k.replace("| ", "").replace("\\n", ""))
 
-                jotain = re.findall(r"cogs/.+?.py", out)
-                jotain2 = re.findall(r"\|.+?\\n", out)
+                    try:
+                        self.bot.reload_extension(h)
+                    except commands.ExtensionFailed as e:
+                        embed.add_field(
+                            name=f'Cog "{h}" Failed to load',
+                            value=str(e),
+                            inline=False
+                        )
+                    except commands.ExtensionAlreadyLoaded:
+                        embed.add_field(
+                            name=f'Cog "{h}" Was updated but not loaded',
+                            value=_l,
+                            inline=False
+                        )
+                    except Exception as e:
+                        embed.add_field(
+                            name=f'Cog "{h}" has errors in it',
+                            value=str(e),
+                            inline=False
+                        )
+                    else:
+                        embed.add_field(
+                            name=f'Cog "{h}" updated',
+                            value=_l,
+                            inline=False
+                        )
 
-                if "Already up to date" in out:
-                    embed = discord.Embed(title="Already up to date")
-
-                elif jotain == []:
-                    embed = discord.Embed(
-                        title="No cogs where updated",
-                        description="""
-                        Something in the main script must have updated
-                        Bot should be restarted to update the main script
-                        """
-                    )
-                    pass
-
-                else:
-                    embed = discord.Embed(
-                        title="Updated:",
-                    )
-                    for x, k in zip(jotain, jotain2):
-                        h = str(x.replace(".py", "").replace("/", "."))
-                        _l = str(k.replace("| ", "").replace("\\n", ""))
-
-                        try:
-                            self.bot.reload_extension(h)
-                        except commands.ExtensionFailed as e:
-                            embed.add_field(
-                                name=f'Cog "{h}" Failed to load',
-                                value=str(e),
-                                inline=False
-                            )
-                        except commands.ExtensionAlreadyLoaded:
-                            embed.add_field(
-                                name=f'Cog "{h}" Was updated but not loaded',
-                                value=_l,
-                                inline=False
-                            )
-                        except Exception as e:
-                            embed.add_field(
-                                name=f'Cog "{h}" has errors in it',
-                                value=str(e),
-                                inline=False
-                            )
-                        else:
-                            embed.add_field(
-                                name=f'Cog "{h}" updated',
-                                value=_l,
-                                inline=False
-                            )
+        if debug:
             embed.add_field(
-                name='debug',
-                value=str(head),
+                name="Debug:",
+                value=str(out),
                 inline=False
             )
-            await ctx.send(embed=embed)
-        except Exception as e:
-            await ctx.send(e)
-
-# b'Updating 5460d4e..adc0b3a\nFast-forward\n bot.py | 2 ++\n 1 file changed, 2 insertions(+)\n'
-# b'Updating adc0b3a..9a27293\nFast-forward\n bot.py | 2 --\n cogs/dev.py | 2 ++\n 2 files changed, 2 insertions(+), 2 deletions(-)\n'
+        await ctx.send(embed=embed)
 
     @dev.command(aliases=["l"])
     async def load(self, ctx, *, arg):
