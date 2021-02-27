@@ -16,6 +16,7 @@ class bot():
             help_command=None
         )
         self.bot_cog_load()
+        print("logging in")
         self.bot.run(str(self.get_token()))
 
     def get_token(self):
