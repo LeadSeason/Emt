@@ -27,7 +27,7 @@ class bot():
         try:
             h = os.scandir("./cogs")
         except FileNotFoundError:
-            logging.error("No ./cogs/ folder can't load cogs")
+            print("No ./cogs/ folder can't load cogs")
             return
 
         _list = []
@@ -49,7 +49,7 @@ class bot():
                     disabled.remove(x)
         except FileNotFoundError:
             disabled = []
-            logging.info("No disabled list")
+            print("No disabled list")
 
         for x in _list:
             try:
@@ -59,21 +59,21 @@ class bot():
                 importlib.import_module(_cog_name)
                 self.bot.load_extension(_cog_name)
             except commands.ExtensionError as e:
-                self.logger.error(
+                print(
                     f"""Failure: Cogs: "{_cog_name}" failed to load"""
                 )
-                self.logger.error(e)
+                print(e)
             except NameError:
-                self.logger.info(
+                print(
                     f"""Disabled: Cogs: "{_cog_name}" wasn't loaded"""
                 )
             except Exception as e:
-                self.logger.error(
+                print(
                     f"""Failure: Cogs: "{_cog_name}" failed to load"""
                 )
-                self.logger.error(e)
+                print(e)
             else:
-                self.logger.info(f"""Enabled : Cogs: "{_cog_name}" loaded""")
+                print(f"""Enabled : Cogs: "{_cog_name}" loaded""")
 
     def logging_setup(self):
         dt = datetime.datetime.today()
@@ -89,7 +89,6 @@ class bot():
                 break
 
         self.logger = logging.getLogger('discord')
-        self.logger.setLevel(logging.DEBUG)
         self.handler = logging.FileHandler(
             filename="./logs/" + filename,
             encoding='utf-8',
