@@ -75,13 +75,14 @@ class dev(commands.Cog):
                 )
                 p.wait()
                 out, err = p.communicate()
+                out = str(out)
 
                 head, _, _ = out.partition('Fast-forward\\n')
 
-                jotain = re.findall(r"cogs/.+?.py", str(out))
-                jotain2 = re.findall(r"\|.+?\\n", str(out))
+                jotain = re.findall(r"cogs/.+?.py", out)
+                jotain2 = re.findall(r"\|.+?\\n", out)
 
-                if "Already up to date" in str(out):
+                if "Already up to date" in out:
                     embed = discord.Embed(title="Already up to date")
 
                 elif jotain == []:
