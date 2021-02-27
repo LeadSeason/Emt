@@ -23,11 +23,6 @@ class bot():
             return json.load(discord_conf)["token"]
 
     def bot_cog_load(self):
-        try:
-            with open("./cogs/.disabled") as a:
-                disabled = a.read().splitlines()
-        except FileNotFoundError:
-            logging.info("No disabled list")
 
         try:
             h = os.scandir("./cogs")
@@ -45,9 +40,15 @@ class bot():
         except Exception:
             pass
 
-        for x in disabled:
-            if x.startswith("#"):
-                disabled.remove(x)
+        try:
+            with open("./cogs/.disabled") as a:
+                disabled = a.read().splitlines()
+
+            for x in disabled:
+                if x.startswith("#"):
+                    disabled.remove(x)
+        except FileNotFoundError:
+            logging.info("No disabled list")
 
         for x in _list:
             try:
