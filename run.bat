@@ -5,6 +5,6 @@ IF Exist "shutdown" (
 
 :Start
 IF Exist "shutdown" GOTO:exit
-py bot.py
+py run.py
 GOTO:Start
 :exit
