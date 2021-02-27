@@ -83,3 +83,5 @@ class bot():
             '%(asctime)s:%(levelname)s:%(name)s: %(message)s'
             ))
         self.logger.addHandler(self.handler)
+
+# test
