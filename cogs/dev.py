@@ -14,7 +14,6 @@ class dev(commands.Cog):
     @commands.group(hidden=True)
     @commands.is_owner()
     async def dev(self, ctx):
-        print(ctx.message.content)
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(
                 title="Dev Tools",
@@ -131,7 +130,7 @@ class dev(commands.Cog):
                             )
             embed.add_field(
                 name='debug',
-                value=head,
+                value=str(head),
                 inline=False
             )
             await ctx.send(embed=embed)
