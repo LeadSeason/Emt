@@ -76,6 +76,8 @@ class dev(commands.Cog):
                 p.wait()
                 out, err = p.communicate()
 
+                head, _, _ = out.partition('Fast-forward\\n')
+
                 jotain = re.findall(r"cogs/.+?.py", str(out))
                 jotain2 = re.findall(r"\|.+?\\n", str(out))
 
@@ -128,7 +130,7 @@ class dev(commands.Cog):
                             )
             embed.add_field(
                 name='debug',
-                value=out,
+                value=head,
                 inline=False
             )
             await ctx.send(embed=embed)
@@ -136,6 +138,7 @@ class dev(commands.Cog):
             await ctx.send(e)
 
 # b'Updating 5460d4e..adc0b3a\nFast-forward\n bot.py | 2 ++\n 1 file changed, 2 insertions(+)\n'
+# b'Updating adc0b3a..9a27293\nFast-forward\n bot.py | 2 --\n cogs/dev.py | 2 ++\n 2 files changed, 2 insertions(+), 2 deletions(-)\n'
 
     @dev.command(aliases=["l"])
     async def load(self, ctx, *, arg):
