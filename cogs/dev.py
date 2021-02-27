@@ -1,6 +1,5 @@
 from discord.ext import commands
 import discord
-import sys
 import os
 import subprocess
 import re
@@ -76,10 +75,10 @@ class dev(commands.Cog):
 
                 jotain = re.findall(r"cogs/.+?.py", str(out))
                 jotain2 = re.findall(r"\|.+?\\n", str(out))
-                print(jotain)
-                print(jotain2)
+
                 if "Already up to date" in str(out):
                     embed = discord.Embed(title="Already up to date")
+
                 elif jotain == []:
                     embed = discord.Embed(
                         title="No cogs where updated",
@@ -89,6 +88,7 @@ class dev(commands.Cog):
                         """
                     )
                     pass
+
                 else:
                     embed = discord.Embed(
                         title="Updated:",
@@ -96,8 +96,7 @@ class dev(commands.Cog):
                     for x, k in zip(jotain, jotain2):
                         h = str(x.replace(".py", "").replace("/", "."))
                         _l = str(k.replace("| ", "").replace("\\n", ""))
-                        print(h)
-                        print(_l)
+
                         try:
                             self.bot.reload_extension(h)
                         except commands.ExtensionFailed as e:
@@ -119,7 +118,6 @@ class dev(commands.Cog):
                                 inline=False
                             )
                         else:
-                            print("adding embed\n" + h + _l)
                             embed.add_field(
                                 name=f'Cog "{h}" updated',
                                 value=_l,
