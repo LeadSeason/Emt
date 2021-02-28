@@ -129,7 +129,7 @@ class dev(commands.Cog):
                             inline=False
                         )
 
-        if debug:
+        if debug is None or debug is False:
             embed.add_field(
                 name="Debug:",
                 value=str(out),
