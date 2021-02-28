@@ -209,6 +209,8 @@ class foodlist(commands.Cog):
         if not skip:
             with open("./data/foods.json", encoding='utf-8') as s:
                 foodlist = json.load(s)
+            print(str(foodlist))
+
             if not sapuska == "Viikon sapuskat":
                 sapuska = "Sapuskat"
                 if len(args) == 1:
