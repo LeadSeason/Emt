@@ -5,7 +5,8 @@ import asyncio
 import re
 import subprocess
 import uwuify
-# cog template
+
+# cog play
 
 
 class play(commands.Cog):

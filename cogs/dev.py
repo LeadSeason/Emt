@@ -4,7 +4,7 @@ import os
 import subprocess
 import re
 
-# cog Template
+# cog dev
 
 
 class dev(commands.Cog):

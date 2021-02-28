@@ -1,10 +1,10 @@
 from discord.ext import commands
 import discord
 
-# cog template
+# cog error
 
 
-class template(commands.Cog):
+class error(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -16,4 +16,4 @@ class template(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(template(bot))
+    bot.add_cog(error(bot))
