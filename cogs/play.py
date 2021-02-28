@@ -102,7 +102,7 @@ class play(commands.Cog):
 
     @commands.command()
     async def ping(self, ctx):
-        await ctx.send(f"🏓Pong {self.bot.latency}")
+        await ctx.send(f"🏓Pong {str(round(self.bot.latency))}")
 
 
 def setup(bot):
