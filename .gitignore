@@ -1,4 +1,5 @@
+/cogs/__pycache__
 /conf
 /__pycache__
-/data
+/data/*
 /logs
