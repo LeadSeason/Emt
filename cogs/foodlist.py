@@ -211,6 +211,9 @@ class foodlist(commands.Cog):
                 foodlist = json.load(s)
             print(str(foodlist))
 
+            if str(foodlist) is {'': []}:
+                await ctx.send("There is food today 😞")
+
             if not sapuska == "Viikon sapuskat":
                 sapuska = "Sapuskat"
                 if len(args) == 1:
