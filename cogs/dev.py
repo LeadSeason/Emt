@@ -187,7 +187,6 @@ class dev(commands.Cog):
         _loaded_cogs = ""
         _cogs = ""
         _loaded = []
-        # _loaded = list(self.bot.cogs.keys())
 
         for x in list_:
             try:
