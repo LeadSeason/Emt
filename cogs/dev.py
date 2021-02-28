@@ -67,6 +67,8 @@ class dev(commands.Cog):
     async def _git(self, ctx, *arg):
         if "debug" in [x.lower() for x in arg]:
             debug = True
+        else:
+            debug = False
 
         async with ctx.typing():
             p = subprocess.Popen(
@@ -128,7 +130,7 @@ class dev(commands.Cog):
                             inline=False
                         )
 
-        if debug is None:
+        if debug:
             embed.add_field(
                 name="Debug:",
                 value=str(out),
