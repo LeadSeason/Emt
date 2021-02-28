@@ -128,7 +128,7 @@ class dev(commands.Cog):
                             inline=False
                         )
 
-        if debug is None or debug is False:
+        if debug is None:
             embed.add_field(
                 name="Debug:",
                 value=str(out),
