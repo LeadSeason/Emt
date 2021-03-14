@@ -47,7 +47,7 @@ def bot_cog_load(bot):
             if x in disabled:
                 raise NameError
             importlib.import_module(_cog_name)
-            self.bot.load_extension(_cog_name)
+            bot.load_extension(_cog_name)
         except commands.ExtensionError as e:
             print(
                 f"""Failure: Cogs: "{_cog_name}" failed to load"""
@@ -104,5 +104,4 @@ bot = commands.Bot(
     help_command=None
 )
 bot_cog_load(bot)
-print("logging in")
 bot.run(str(get_token()))
