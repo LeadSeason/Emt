@@ -90,7 +90,7 @@ class foodlist(commands.Cog):
             file_stat = os.stat("./data/foods.json").st_mtime
 
         except FileNotFoundError:
-            h = self.generate_jsonfile(ctx.author)
+            h = self.generate_jsonfile()
             if h == "error":
                 await ctx.channel.send(
                     "there was a error while making the json file")
