@@ -66,37 +66,10 @@ def bot_cog_load(bot):
             print(f"""Enabled : Cogs: "{_cog_name}" loaded""")
 
 
-"""
-def logging_setup():
-    dt = datetime.datetime.today()
-    filenamestart = str(dt.year) + "-" + str(dt.month) + "-" + str(dt.day)
-
-    if not os.path.exists("./logs/"):
-        print("No logs folder. making logs folder...")
-        os.mkdir("./logs/")
-
-    for x in range(9999):
-        filename = filenamestart + "-" + str(x) + ".log"
-        if not os.path.exists("./logs/" + filename):
-            break
-
-    self.logger = logging.getLogger('discord')
-    self.handler = logging.FileHandler(
-        filename="./logs/" + filename,
-        encoding='utf-8',
-        mode='w'
-        )
-    self.handler.setFormatter(logging.Formatter(
-        '%(asctime)s:%(levelname)s:%(name)s: %(message)s'
-        ))
-    self.logger.addHandler(self.handler)
-"""
-
 print("updating...")
 p = subprocess.Popen(["git", "pull"])
 p.wait()
 
-# logging_setup()
 bot = commands.Bot(
     command_prefix=";",
     case_insensitive=True,
