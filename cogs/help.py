@@ -20,6 +20,9 @@ class help(commands.Cog):
                 arg = "help"
             arg = arg.lower() + " "
 
+            print(arg)
+            print(commands_list)
+
             if arg in commands_list:
                 try:
                     with open("./data/help.json", encoding='utf-8') as s:
