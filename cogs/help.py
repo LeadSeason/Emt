@@ -134,7 +134,7 @@ class help(commands.Cog):
             await ctx.send(_help)
             with open("./data/help.json", "r", encoding="utf8") as f:
                 data = json.load(f)
-            with open("./data/foods.json", 'w', encoding='utf8') as f:
+            with open("./data/help.json", 'w', encoding='utf8') as f:
                 json.dump(data.update(_help), f, indent=4, ensure_ascii=False)
 
     @commands.command(name="commands")
