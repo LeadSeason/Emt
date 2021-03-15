@@ -9,7 +9,7 @@ class help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.commands(description="Help for commands")
+    @commands.command(description="Help for commands")
     async def help(self, ctx, arg=None):
         if ctx.invoked_subcommand is None:
             commands_list = []
@@ -69,8 +69,8 @@ class help(commands.Cog):
         await ctx.send("command not done yet")
         pass
 
-    @commands.command()
-    async def commands(self, ctx):
+    @commands.command(name="commands")
+    async def idkjotain(self, ctx):
         commands_list = []
         for x in self.bot.commands:
             commands_list.append(str(x))
