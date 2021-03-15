@@ -14,10 +14,8 @@ class help(commands.Cog):
         if ctx.invoked_subcommand is None:
             if arg is None:
                 arg = "help"
-            arg = arg.lower()
-            print(f"juu: {arg}")
+            arg = arg.lower() + " "
             for command in self.bot.commands:
-                print(command)
                 if str(arg) is str(command):
                     try:
                         with open("./data/help.json", encoding='utf-8') as s:
