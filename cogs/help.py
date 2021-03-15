@@ -115,6 +115,8 @@ class help(commands.Cog):
                 inline=False
             )
             await ctx.send(embed=embed)
+        elif usage is None:
+            await ctx.send("missing usage arg\ndid you froget to add subcommand=none")
         else:
             print(f'"{subcommand}"')
             if subcommand is None or subcommand.lower() == "none":
@@ -136,7 +138,7 @@ class help(commands.Cog):
                     }
                 }
             await ctx.send(_help)
-            """
+
             with open("./data/help.json", "r+", encoding='utf8') as f:
                 data = json.loads(f.read())
                 data.update(_help)
@@ -144,13 +146,12 @@ class help(commands.Cog):
                 json.dump(data, f, indent=4, ensure_ascii=False)
                 f.truncate()
             """
-
             with open("./data/help.json", "r", encoding="utf8") as f:
                 data = json.load(f)
             data = data.update(_help)
             with open("./data/help.json", 'w', encoding='utf8') as f:
                 json.dump(data, f, indent=4, ensure_ascii=False)
-
+            """
     @commands.command(name="commands")
     async def idkjotain(self, ctx):
         commands_list = []
