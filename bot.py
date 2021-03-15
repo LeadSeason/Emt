@@ -74,5 +74,11 @@ bot = commands.Bot(
     self_bot=False,
     help_command=None
 )
+
+@bot.event
+async def on_ready(ctx):
+    print(f"Logged in as {bot.user}")
+
+
 bot_cog_load(bot)
 bot.run(str(get_token()))
