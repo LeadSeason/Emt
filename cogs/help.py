@@ -138,19 +138,19 @@ class help(commands.Cog):
                     }
                 }
             await ctx.send(_help)
-
-            with open("./data/help.json", "r+", encoding='utf8') as f:
+            """
+            with open("./data/help.json", "r+") as f:
                 data = json.loads(f.read())
                 data.update(_help)
                 f.seek(0)
-                json.dump(data, f, indent=4, ensure_ascii=False)
+                json.dump(data, f, indent=4)
             """
-            with open("./data/help.json", "r", encoding="utf8") as f:
+            with open("./data/help.json", "r") as f:
                 data = json.load(f)
             data = data.update(_help)
-            with open("./data/help.json", 'w', encoding='utf8') as f:
-                json.dump(data, f, indent=4, ensure_ascii=False)
-            """
+            with open("./data/help.json", 'w') as f:
+                json.dump(data, f, indent=4)
+
     @commands.command(name="commands")
     async def idkjotain(self, ctx):
         commands_list = []
