@@ -43,7 +43,7 @@ class help(commands.Cog):
                     )
                     try:
                         keys = ""
-                        print()
+                        print(list(d["subcommands"].keys()))
                         for x in list(d["subcommands"].keys()):
                             keys + keys + x + " "
                         print("debug" + keys)
