@@ -16,7 +16,7 @@ class help(commands.Cog):
                 arg = "help"
             arg = arg.lower()
             for command in self.bot.commands:
-                if arg in command:
+                if arg == command:
                     try:
                         with open("./data/help.json", encoding='utf-8') as s:
                             d = json.load(s)[arg]
