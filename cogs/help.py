@@ -144,7 +144,6 @@ class help(commands.Cog):
                 data.update(_help)
                 f.seek(0)
                 json.dump(data, f, indent=4, ensure_ascii=False)
-                f.truncate()
             """
             with open("./data/help.json", "r", encoding="utf8") as f:
                 data = json.load(f)
