@@ -18,7 +18,7 @@ class help(commands.Cog):
 
             if arg is None:
                 arg = "help"
-            arg = arg.lower() + " "
+            arg = arg.lower()
 
             print(arg)
             print(commands_list)
