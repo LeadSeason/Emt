@@ -10,17 +10,17 @@ class help(commands.Cog):
         self.bot = bot
 
     @commands.command(description="Help for commands")
-    async def help(self, ctx, arg=None):
-        if ctx.invoked_subcommand is None:
-            commands_list = []
-            for x in self.bot.commands:
-                commands_list.append(str(x))
+    async def help(self, ctx, arg=None, subcommand=None):
+        commands_list = []
+        for x in self.bot.commands:
+            commands_list.append(str(x))
 
-            if arg is None:
-                arg = "help"
-            arg = arg.lower()
+        if arg is None:
+            arg = "help"
+        arg = arg.lower()
 
-            if arg in commands_list:
+        if arg in commands_list:
+            if subcommand is None:
                 try:
                     with open("./data/help.json", encoding='utf-8') as s:
                         d = json.load(s)[arg]
@@ -30,7 +30,7 @@ class help(commands.Cog):
                     print(f"help for command {arg} doesnt exist")
                     await ctx.send("Help for this command doesn't exist")
                 else:
-                    embed = discord.Embed(title="Help")
+                    embed = discord.Embed(title=arg.capitalize())
                     embed.add_field(
                         name="description",
                         value=d["description"],
@@ -55,7 +55,29 @@ class help(commands.Cog):
                         pass
                     await ctx.send(embed=embed)
             else:
-                await ctx.send("Command doesn't exist")
+                try:
+                    with open("./data/help.json", encoding='utf-8') as s:
+                        d = json.load(s)[arg]["subcommand"][subcommand]
+                except FileNotFoundError:
+                    await ctx.send("no help.json found")
+                except KeyError:
+                    print(f"help for command {arg} doesnt exist")
+                    await ctx.send("Help for this subcommand doesn't exist")
+                else:
+                    embed = discord.Embed(title="Help")
+                    embed.add_field(
+                        name="description",
+                        value=d["description"],
+                        inline=False
+                    )
+                    embed.add_field(
+                        name="usage",
+                        value=d["usage"],
+                        inline=False
+                    )
+                    await ctx.send(embed=embed)
+        else:
+            await ctx.send("Command doesn't exist")
 
     @commands.command()
     @commands.is_owner()
