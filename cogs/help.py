@@ -113,7 +113,7 @@ class help(commands.Cog):
             )
             await ctx.send(embed=embed)
         else:
-            if subcommand is None:
+            if subcommand is None or subcommand.lower == "none":
                 _help = {
                     command: {
                         "description": description,
