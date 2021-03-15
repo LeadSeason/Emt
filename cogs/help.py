@@ -78,7 +78,7 @@ class help(commands.Cog):
 
         for x in hidden:
             try:
-                commands_list.pop(x)
+                commands_list.remove(x)
             except IndexError:
                 pass
 
