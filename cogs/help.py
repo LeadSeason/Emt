@@ -124,7 +124,7 @@ class help(commands.Cog):
                     data = json.load(f)
                 with open("./data/foods.json", 'w', encoding='utf8') as f:
                     # json.dump(data, f, ensure_ascii=False)
-                    json.dump(data.append(_help), f, indent=4, ensure_ascii=False)
+                    json.dump(data.update(_help), f, indent=4, ensure_ascii=False)
             else:
                 _help = {
                     command: {
@@ -139,7 +139,7 @@ class help(commands.Cog):
             with open("./data/help.json", "r", encoding="utf8") as f:
                 data = json.load(f)
             with open("./data/foods.json", 'w', encoding='utf8') as f:
-                json.dump(data.append(_help), f, indent=4, ensure_ascii=False)
+                json.dump(data.update(_help), f, indent=4, ensure_ascii=False)
 
     @commands.command(name="commands")
     async def idkjotain(self, ctx):
