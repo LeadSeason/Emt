@@ -156,7 +156,7 @@ class dev(commands.Cog):
             embed = discord.Embed(
                 title=f"Cog: {arg} Unloaded.",
                 color=0x00ff00
-                )
+            )
             await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(e)
@@ -169,7 +169,7 @@ class dev(commands.Cog):
             embed = discord.Embed(
                 title=f"Cog: {arg} Reloaded.",
                 color=0x00ff00
-                )
+            )
             await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(e)

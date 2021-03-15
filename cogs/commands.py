@@ -208,7 +208,7 @@ class play(commands.Cog):
                 title="food list",
                 description=des,
                 color=0x4d4d4d
-                )
+            )
             await ctx.send(embed=embed)
             skip = True
 

@@ -41,7 +41,7 @@ def bot_cog_load(bot):
 
     for x in _list:
         try:
-            _cog_name = "cogs."+x.replace(".py", "")
+            _cog_name = "cogs." + x.replace(".py", "")
             if x in disabled:
                 raise NameError
             importlib.import_module(_cog_name)
@@ -74,6 +74,7 @@ bot = commands.Bot(
     self_bot=False,
     help_command=None
 )
+
 
 @bot.event
 async def on_ready(ctx):
