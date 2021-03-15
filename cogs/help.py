@@ -45,6 +45,7 @@ class help(commands.Cog):
                         keys = ""
                         for x in list(d["subcommands"].keys()):
                             keys.join(x)
+                        print(keys)
                         embed.add_field(
                             name="Subcommands",
                             value=keys,
