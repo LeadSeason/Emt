@@ -15,7 +15,9 @@ class help(commands.Cog):
             if arg is None:
                 arg = "help"
             arg = arg.lower()
+            print(f"juu: {arg}")
             for command in self.bot.commands:
+                print(command)
                 if arg == command:
                     try:
                         with open("./data/help.json", encoding='utf-8') as s:
