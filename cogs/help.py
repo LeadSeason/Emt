@@ -15,29 +15,31 @@ class help(commands.Cog):
             if arg is None:
                 arg = "help"
             arg = arg.lower()
-            print(self.bot.commands)
-            if arg in self.bot.commands:
-                try:
-                    with open("./data/help.json", encoding='utf-8') as s:
-                        d = json.load(s)[arg]
-                except FileNotFoundError:
-                    await ctx.send("no help.json found")
-                except KeyError:
-                    print(f"help for command {arg} doesnt exist")
-                    await ctx.send("Help for this command doesn't exist")
-                else:
-                    embed = discord.Embed(title="Help")
-                    embed.add_field(
-                        name="description",
-                        value=d["description"],
-                        inline=False
-                    )
-                    embed.add_field(
-                        name="usage",
-                        value=d["usage"],
-                        inline=False
-                    )
-                    await ctx.send(embed=embed)
+            for command in self.bot.commands:
+                if arg in command:
+                    try:
+                        with open("./data/help.json", encoding='utf-8') as s:
+                            d = json.load(s)[arg]
+                    except FileNotFoundError:
+                        await ctx.send("no help.json found")
+                    except KeyError:
+                        print(f"help for command {arg} doesnt exist")
+                        await ctx.send("Help for this command doesn't exist")
+                    else:
+                        embed = discord.Embed(title="Help")
+                        embed.add_field(
+                            name="description",
+                            value=d["description"],
+                            inline=False
+                        )
+                        embed.add_field(
+                            name="usage",
+                            value=d["usage"],
+                            inline=False
+                        )
+                        await ctx.send(embed=embed)
+
+                    break
             else:
                 await ctx.send("Command doesn't exist")
 
