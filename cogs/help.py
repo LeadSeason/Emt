@@ -77,7 +77,7 @@ class help(commands.Cog):
 
         outstr = ""
         for x in commands_list:
-            outstr + outstr + x + "\n"
+            outstr = outstr + x + "\n"
         embed = discord.Embed(
             title="Commands",
             description=outstr
