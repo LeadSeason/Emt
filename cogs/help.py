@@ -67,7 +67,7 @@ class help(commands.Cog):
                     print(f"help for command {arg} doesnt exist")
                     await ctx.send("Help for this subcommand doesn't exist")
                 else:
-                    embed = discord.Embed(title="Help")
+                    embed = discord.Embed(title=arg + " " + subcommand)
                     embed.add_field(
                         name="description",
                         value=d["description"],
@@ -116,6 +116,7 @@ class help(commands.Cog):
             )
             await ctx.send(embed=embed)
         else:
+            print(subcommand)
             if subcommand is None or subcommand.lower == "none":
                 _help = {
                     command: {
@@ -139,7 +140,7 @@ class help(commands.Cog):
                 data = json.load(f)
                 data.update(_help)
                 f.seek(0)
-                json.dump(data, f, ensure_ascii=False)
+                json.dump(data, f, indent=4, ensure_ascii=False)
             """
             with open("./data/help.json", "r", encoding="utf8") as f:
                 data = json.load(f)
