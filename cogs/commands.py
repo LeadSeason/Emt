@@ -307,8 +307,8 @@ class play(commands.Cog):
                 else:
                     await ctx.send(f"You rolled {randint}!")
 
-    @commands.command(aliases=["randomytvid"])
-    async def ryt(self, ctx):
+    @commands.command(aliases=["randomytvid", "ryt"])
+    async def randomytvid(self, ctx):
         if platform.system() == "Windows":
             p = subprocess.Popen(
                 ["py", "./utils/ytapi.py"],
