@@ -18,7 +18,7 @@ class help(commands.Cog):
             print(f"juu: {arg}")
             for command in self.bot.commands:
                 print(command)
-                if arg == command:
+                if str(arg) is str(command):
                     try:
                         with open("./data/help.json", encoding='utf-8') as s:
                             d = json.load(s)[arg]
