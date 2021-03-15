@@ -12,7 +12,7 @@ class help(commands.Cog):
     @commands.group(description="Returns all commands available")
     async def help(self, ctx, arg=None):
         if ctx.invoked_subcommand is None:
-            await ctx.send()
+            await ctx.send("?")
             """
             _list = self.bot.commands
             with open("./data/help.json", encoding='utf-8') as s:
