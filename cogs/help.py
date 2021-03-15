@@ -135,7 +135,7 @@ class help(commands.Cog):
                     }
                 }
             await ctx.send(_help)
-            with open("./data/todo.json", "r+", encoding='utf8') as f:
+            with open("./data/help.json", "r+", encoding='utf8') as f:
                 data = json.load(f)
                 data.update(_help)
                 f.seek(0)
