@@ -17,10 +17,15 @@ class help(commands.Cog):
                 commands_list.append(str(x))
 
             if arg is None:
-                arg = "help"
-            arg = arg.lower()
-
-            if arg in commands_list:
+                outstr = ""
+                for x in commands_list:
+                    outstr + outstr + x + "\n"
+                embed = discord.Embed(
+                    title="Commands",
+                    description="outstr"
+                )
+                await ctx.send(embed=embed)
+            elif arg in commands_list:
                 try:
                     with open("./data/help.json", encoding='utf-8') as s:
                         d = json.load(s)[arg]
@@ -44,8 +49,7 @@ class help(commands.Cog):
                     try:
                         keys = ""
                         for x in list(d["subcommands"].keys()):
-                            keys = keys + x
-                        print("debug" + keys)
+                            keys = keys + x + " "
                         embed.add_field(
                             name="Subcommands",
                             value=keys,
