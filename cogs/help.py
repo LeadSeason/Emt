@@ -120,11 +120,6 @@ class help(commands.Cog):
                         "usage": usage,
                     }
                 }
-                with open("./data/help.json", "r", encoding="utf8") as f:
-                    data = json.load(f)
-                with open("./data/foods.json", 'w', encoding='utf8') as f:
-                    # json.dump(data, f, ensure_ascii=False)
-                    json.dump(data.update(_help), f, indent=4, ensure_ascii=False)
             else:
                 _help = {
                     command: {
@@ -136,6 +131,7 @@ class help(commands.Cog):
                         }
                     }
                 }
+            await ctx.send(_help)
             with open("./data/help.json", "r", encoding="utf8") as f:
                 data = json.load(f)
             with open("./data/foods.json", 'w', encoding='utf8') as f:
