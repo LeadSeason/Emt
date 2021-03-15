@@ -74,12 +74,18 @@ class help(commands.Cog):
         commands_list = []
         hidden = ["dev", "helpsubadd", "helpadd"]
         for x in self.bot.commands:
-            if x not in hidden:
-                commands_list.append(str(x))
+            commands_list.append(str(x))
+
+        for x in hidden:
+            try:
+                commands_list.pop(x)
+            except IndexError:
+                pass
 
         outstr = ""
         for x in commands_list:
             outstr = outstr + x + "\n"
+
         embed = discord.Embed(
             title="Commands",
             description=outstr
