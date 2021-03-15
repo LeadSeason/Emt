@@ -14,7 +14,7 @@ class help(commands.Cog):
         if ctx.invoked_subcommand is None:
             commands_list = []
             for x in self.bot.commands:
-                commands_list.append(x)
+                commands_list.append(str(x))
 
             if arg is None:
                 arg = "help"
