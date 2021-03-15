@@ -116,7 +116,7 @@ class help(commands.Cog):
             )
             await ctx.send(embed=embed)
         else:
-            print(subcommand)
+            print(f'"{subcommand}"')
             if subcommand is None or subcommand.lower == "none":
                 _help = {
                     command: {
