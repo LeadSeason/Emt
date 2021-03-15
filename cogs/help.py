@@ -43,7 +43,7 @@ class help(commands.Cog):
                     )
                     try:
                         keys = ""
-                        for x in list(d["help"]["subcommands"].keys()):
+                        for x in list(d[arg]["subcommands"].keys()):
                             keys.join(x)
                         embed.add_field(
                             name="Subcommands",
@@ -51,7 +51,7 @@ class help(commands.Cog):
                             inline=False
                         )
                     except KeyError as e:
-                        print(e)
+                        print(f"error:{e}")
                         pass
                     await ctx.send(embed=embed)
             else:
