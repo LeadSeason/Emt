@@ -43,8 +43,8 @@ class help(commands.Cog):
                     )
                     try:
                         keys = ""
-                        print(list(d["subcommands"].keys()))
-                        for x in list(d["subcommands"].keys()):
+                        _list = list(d["subcommands"].keys())
+                        for x in _list:
                             keys + keys + x + " "
                         print("debug" + keys)
                         embed.add_field(
