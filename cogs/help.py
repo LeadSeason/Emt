@@ -29,6 +29,9 @@ class help(commands.Cog):
                 except KeyError:
                     print(f"help for command {arg} doesnt exist")
                     await ctx.send("Help for this command doesn't exist")
+                except TypeError:
+                    print("./data/help.json is fucked")
+                    await ctx.send("help.json is fucked")
                 else:
                     embed = discord.Embed(title=arg.capitalize())
                     embed.add_field(
@@ -132,10 +135,17 @@ class help(commands.Cog):
                     }
                 }
             await ctx.send(_help)
+            with open("./data/todo.json", "r+", encoding='utf8') as f:
+                data = json.load(f)
+                data.update(_help)
+                f.seek(0)
+                json.dump(data, f, ensure_ascii=False)
+            """
             with open("./data/help.json", "r", encoding="utf8") as f:
                 data = json.load(f)
             with open("./data/help.json", 'w', encoding='utf8') as f:
                 json.dump(data.update(_help), f, indent=4, ensure_ascii=False)
+            """
 
     @commands.command(name="commands")
     async def idkjotain(self, ctx):
