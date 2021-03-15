@@ -63,7 +63,7 @@ class dev(commands.Cog):
         await ctx.send("Shutting down")
         await self.bot.logout()
 
-    @dev.command(name="update")
+    @dev.command(name="update", aliases=["up"])
     async def _git(self, ctx, *arg):
         if "debug" in [x.lower() for x in arg]:
             debug = True

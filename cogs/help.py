@@ -50,7 +50,8 @@ class help(commands.Cog):
                             value=keys,
                             inline=False
                         )
-                    except KeyError:
+                    except KeyError as e:
+                        print(e)
                         pass
                     await ctx.send(embed=embed)
             else:
