@@ -57,7 +57,7 @@ class help(commands.Cog):
             else:
                 try:
                     with open("./data/help.json", encoding='utf-8') as s:
-                        d = json.load(s)[arg]["subcommand"][subcommand]
+                        d = json.load(s)[arg]["subcommands"][subcommand]
                 except FileNotFoundError:
                     await ctx.send("no help.json found")
                 except KeyError:
