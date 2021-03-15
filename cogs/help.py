@@ -9,7 +9,7 @@ class help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.group(description="Returns all commands available")
+    @commands.commands(description="Help for commands")
     async def help(self, ctx, arg=None):
         if ctx.invoked_subcommand is None:
             commands_list = []
@@ -17,15 +17,10 @@ class help(commands.Cog):
                 commands_list.append(str(x))
 
             if arg is None:
-                outstr = ""
-                for x in commands_list:
-                    outstr + outstr + x + "\n"
-                embed = discord.Embed(
-                    title="Commands",
-                    description="outstr"
-                )
-                await ctx.send(embed=embed)
-            elif arg in commands_list:
+                arg = "help"
+            arg = arg.lower()
+
+            if arg in commands_list:
                 try:
                     with open("./data/help.json", encoding='utf-8') as s:
                         d = json.load(s)[arg]
@@ -62,17 +57,32 @@ class help(commands.Cog):
             else:
                 await ctx.send("Command doesn't exist")
 
-    @help.command()
+    @commands.command()
     @commands.is_owner()
-    async def add(self, ctx):
+    async def helpadd(self, ctx):
         await ctx.send("command not done yet")
         pass
 
-    @help.command()
+    @commands.command()
     @commands.is_owner()
-    async def subadd(self, ctx):
+    async def helpsubadd(self, ctx):
         await ctx.send("command not done yet")
         pass
+
+    @commands.command()
+    async def commands(self, ctx):
+        commands_list = []
+        for x in self.bot.commands:
+            commands_list.append(str(x))
+
+        outstr = ""
+        for x in commands_list:
+            outstr + outstr + x + "\n"
+        embed = discord.Embed(
+            title="Commands",
+            description=outstr
+        )
+        await ctx.send(embed=embed)
 
 
 def setup(bot):
