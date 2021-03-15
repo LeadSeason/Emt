@@ -15,7 +15,7 @@ class help(commands.Cog):
             if arg is None:
                 arg = "help"
             arg = arg.lower()
-
+            print(self.bot.commands)
             if arg in self.bot.commands:
                 try:
                     with open("./data/help.json", encoding='utf-8') as s:
