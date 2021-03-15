@@ -20,9 +20,6 @@ class help(commands.Cog):
                 arg = "help"
             arg = arg.lower()
 
-            print(arg)
-            print(commands_list)
-
             if arg in commands_list:
                 try:
                     with open("./data/help.json", encoding='utf-8') as s:
@@ -44,9 +41,18 @@ class help(commands.Cog):
                         value=d["usage"],
                         inline=False
                     )
+                    try:
+                        keys = ""
+                        for x in list(d["help"]["subcommands"].keys()):
+                            keys.join(x)
+                        embed.add_field(
+                            name="Subcommands",
+                            value=keys,
+                            inline=False
+                        )
+                    except KeyError:
+                        pass
                     await ctx.send(embed=embed)
-
-                
             else:
                 await ctx.send("Command doesn't exist")
 
