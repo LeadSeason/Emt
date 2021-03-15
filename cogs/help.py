@@ -81,15 +81,65 @@ class help(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def helpadd(self, ctx):
-        await ctx.send("command not done yet")
-        pass
+    async def helprm(self, ctx, command=None, subcommand=None):
+        if command is None:
+            embed = discord.Embed(title="Helprm")
+            embed.add_field(
+                name="description",
+                value="Removes help for a command or subcommand",
+                inline=False
+            )
+            embed.add_field(
+                name="usage",
+                value=";Helprm <command> <subcommand>",
+                inline=False
+            )
+            await ctx.send(embed=embed)
 
     @commands.command()
     @commands.is_owner()
-    async def helpsubadd(self, ctx):
-        await ctx.send("command not done yet")
-        pass
+    async def helpadd(self, ctx, command=None, subcommand=None, description=None, usage=None):
+        if command is None:
+            embed = discord.Embed(title="Helpadd")
+            embed.add_field(
+                name="description",
+                value="adds help for a command or subcommand",
+                inline=False
+            )
+            embed.add_field(
+                name="usage",
+                value=";Help add <command> <subcommand> <'description'> <'usage'>",
+                inline=False
+            )
+            await ctx.send(embed=embed)
+        else:
+            if subcommand is None:
+                _help = {
+                    command: {
+                        "description": description,
+                        "usage": usage,
+                    }
+                }
+                with open("./data/help.json", "r", encoding="utf8") as f:
+                    data = json.load(f)
+                with open("./data/foods.json", 'w', encoding='utf8') as f:
+                    # json.dump(data, f, ensure_ascii=False)
+                    json.dump(data.append(_help), f, indent=4, ensure_ascii=False)
+            else:
+                _help = {
+                    command: {
+                        "subcommands": {
+                            subcommand: {
+                                "description": description,
+                                "usage": usage
+                            }
+                        }
+                    }
+                }
+            with open("./data/help.json", "r", encoding="utf8") as f:
+                data = json.load(f)
+            with open("./data/foods.json", 'w', encoding='utf8') as f:
+                json.dump(data.append(_help), f, indent=4, ensure_ascii=False)
 
     @commands.command(name="commands")
     async def idkjotain(self, ctx):
