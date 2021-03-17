@@ -534,6 +534,9 @@ class play(commands.Cog):
             if arg.lower() == "scissors":
                 embed = discord.Embed(title="I Won", description="You chose Scissors, I choose Rock.")
                 await ctx.send(embed=embed)
+        else:
+            embed = discord.Embed(title="Usage", description="You need to choose rock, paper or scissors.")
+            await ctx.send(embed=embed)
 
 
 def setup(bot):
