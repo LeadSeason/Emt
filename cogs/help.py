@@ -162,13 +162,15 @@ class help(commands.Cog):
                     json.dump(data, f, indent=4, ensure_ascii=False)
             else:
                 _help = {
-                    subcommand: {
-                        "description": description,
-                        "usage": usage
+                    "subcommands": {
+                        subcommand: {
+                            "description": description,
+                            "usage": usage
+                        }
                     }
                 }
                 with open("./data/help.json", "r", encoding="utf8") as f:
-                    data = json.load(f)[command]["subcommands"]
+                    data = json.load(f)[command]
                 data.update(_help)
                 with open("./data/help.json", 'w', encoding='utf8') as f:
                     json.dump(data, f, indent=4, ensure_ascii=False)
