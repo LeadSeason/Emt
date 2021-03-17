@@ -113,9 +113,9 @@ class help(commands.Cog):
                     json.dump(data, f, indent=4, ensure_ascii=False)
         elif command in commands_list:
             with open("./data/help.json", "r", encoding="utf8") as f:
-                data = json.load(f)[command]["subcommands"]
+                data = json.load(f)
             try:
-                data.pop(subcommand)
+                data[command]["subcommands"].pop(subcommand)
             except KeyError:
                 await ctx.send(f"{subcommand} is not a command or there is no help for this command")
             else:
