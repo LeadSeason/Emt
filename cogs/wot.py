@@ -24,7 +24,7 @@ class template(commands.Cog):
             return int(user["data"][0]["account_id"])
 
     async def getdata_list(self, arg1):
-        with open("./configs/wot_conf.json") as discord_conf:
+        with open("./conf/wot_conf.json") as discord_conf:
             wot_apikey = json.load(discord_conf)["api_key"]
         baseurl = "https://api.worldoftanks.eu/wot"
 
