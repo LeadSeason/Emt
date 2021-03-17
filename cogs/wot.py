@@ -50,18 +50,18 @@ class template(commands.Cog):
             data = await self.getdata_list(user_id)
             user_data = data["data"][user_id]
             des = "Account made:" + await self.timeconvert(user_data["created_at"])
-            des = des + "Rank: " + str(user_data["global_rating"])
-            des = des + "\nlast battle:" + await self.timeconvert(user_data["last_battle_time"])
+            des += "Rank: " + str(user_data["global_rating"])
+            des += "\nlast battle:" + await self.timeconvert(user_data["last_battle_time"])
             embed = discord.Embed(title="player stats for player " + user_data["nickname"], color=0x4d4d4d, description=des)
             user_stats = user_data["statistics"]["all"]
             stats_des = "max_xp: " + str(user_stats["max_xp"])
-            stats_des = stats_des + "\nbattles: " + str(user_stats["battles"])
-            stats_des = stats_des + "\nwins: " + str(user_stats["wins"])
-            stats_des = stats_des + "\nlosses: " + str(user_stats["losses"])
+            stats_des += "\nbattles: " + str(user_stats["battles"])
+            stats_des += "\nwins: " + str(user_stats["wins"])
+            stats_des += "\nlosses: " + str(user_stats["losses"])
             winluus = int((user_stats["wins"] / (int(user_stats["wins"]) + int(user_stats["losses"]))) * 100)
-            stats_des = stats_des + "\nwin ratio: " + str(round(int(winluus), 5)) + "%"
-            stats_des = stats_des + "\nmax_frag: " + str(user_stats["max_frags"])
-            stats_des = stats_des + "\nTree cut: " + str(user_data["statistics"]["trees_cut"])
+            stats_des += "\nwin ratio: " + str(round(int(winluus), 5)) + "%"
+            stats_des += "\nmax_frag: " + str(user_stats["max_frags"])
+            stats_des += "\nTree cut: " + str(user_data["statistics"]["trees_cut"])
             embed.add_field(name="Stats", value=stats_des, inline=False)
 
             await ctx.send(embed=embed)
