@@ -105,7 +105,7 @@ class help(commands.Cog):
             with open("./data/help.json", "r", encoding="utf8") as f:
                 data = json.load(f)
             try:
-                h.pop(command)
+                data.pop(command)
             except KeyError:
                 await ctx.send(f"{command} is not a command or there is no help for this command")
             else:
