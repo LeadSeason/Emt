@@ -155,31 +155,24 @@ class help(commands.Cog):
                         "usage": usage,
                     }
                 }
+                with open("./data/help.json", "r", encoding="utf8") as f:
+                    data = json.load(f)
+                data.update(_help)
+                with open("./data/help.json", 'w', encoding='utf8') as f:
+                    json.dump(data, f, indent=4, ensure_ascii=False)
             else:
                 _help = {
-                    command: {
-                        "subcommands": {
-                            subcommand: {
-                                "description": description,
-                                "usage": usage
-                            }
-                        }
+                    subcommand: {
+                        "description": description,
+                        "usage": usage
                     }
                 }
-            await ctx.send(_help)
-            """
-            with open("./data/help.json", "r+", encoding='utf8') as f:
-                data = json.loads(f.read())
+                with open("./data/help.json", "r", encoding="utf8") as f:
+                    data = json.load(f)[command]["subcommands"]
                 data.update(_help)
-                f.seek(0)
-                json.dump(data, f, indent=4, ensure_ascii=False)
-                f.truncate()
-            """
-            with open("./data/help.json", "r", encoding="utf8") as f:
-                data = json.load(f)
-            data.update(_help)
-            with open("./data/help.json", 'w', encoding='utf8') as f:
-                json.dump(data, f, indent=4, ensure_ascii=False)
+                with open("./data/help.json", 'w', encoding='utf8') as f:
+                    json.dump(data, f, indent=4, ensure_ascii=False)
+
 
     @commands.command(name="commands")
     async def idkjotain(self, ctx):
