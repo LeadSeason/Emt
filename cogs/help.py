@@ -101,7 +101,7 @@ class help(commands.Cog):
                 inline=False
             )
             await ctx.send(embed=embed)
-        elif subcommand == None and command in commands_list:
+        elif subcommand is None and command in commands_list:
             with open("./data/help.json", "r", encoding="utf8") as f:
                 data = json.load(f)
             try:

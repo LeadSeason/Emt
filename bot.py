@@ -77,7 +77,7 @@ bot = commands.Bot(
 
 
 @bot.event
-async def on_ready(ctx):
+async def on_ready():
     print(f"Logged in as {bot.user}")
 
 
