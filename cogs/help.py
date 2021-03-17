@@ -85,6 +85,9 @@ class help(commands.Cog):
     @commands.command(hidden=True)
     @commands.is_owner()
     async def helprm(self, ctx, command=None, subcommand=None):
+        commands_list = []
+        for x in self.bot.commands:
+            commands_list.append(str(x))
         if command is None:
             embed = discord.Embed(title="Helprm")
             embed.add_field(
@@ -98,6 +101,16 @@ class help(commands.Cog):
                 inline=False
             )
             await ctx.send(embed=embed)
+        elif subcommand == None:
+            with open("./data/help.json", "r", encoding="utf8") as f:
+                data = json.load(f)
+            try:
+                h.pop(command)
+            except KeyError:
+                await ctx.send(f"{command} is not a command or there is no help for this command")
+            else:
+                with open("./data/help.json", 'w', encoding='utf8') as f:
+                    json.dump(data, f, indent=4, ensure_ascii=False)
 
     @commands.command(hidden=True)
     @commands.is_owner()
