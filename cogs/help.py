@@ -101,13 +101,23 @@ class help(commands.Cog):
                 inline=False
             )
             await ctx.send(embed=embed)
-        elif subcommand == None:
+        elif subcommand == None and command in commands_list:
             with open("./data/help.json", "r", encoding="utf8") as f:
                 data = json.load(f)
             try:
                 data.pop(command)
             except KeyError:
                 await ctx.send(f"{command} is not a command or there is no help for this command")
+            else:
+                with open("./data/help.json", 'w', encoding='utf8') as f:
+                    json.dump(data, f, indent=4, ensure_ascii=False)
+        elif command in commands_list:
+            with open("./data/help.json", "r", encoding="utf8") as f:
+                data = json.load(f)[command]["subcommands"]
+            try:
+                data.pop(subcommand)
+            except KeyError:
+                await ctx.send(f"{subcommand} is not a command or there is no help for this command")
             else:
                 with open("./data/help.json", 'w', encoding='utf8') as f:
                     json.dump(data, f, indent=4, ensure_ascii=False)
