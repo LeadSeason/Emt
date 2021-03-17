@@ -128,7 +128,7 @@ class help(commands.Cog):
         commands_list = []
         for x in self.bot.commands:
             commands_list.append(str(x))
-        if not command in commands_list:
+        if command not in commands_list:
             await ctx.send(f"{command} in not a command")
             return
         if command is None:
@@ -162,19 +162,16 @@ class help(commands.Cog):
                     json.dump(data, f, indent=4, ensure_ascii=False)
             else:
                 _help = {
-                    "subcommands": {
-                        subcommand: {
-                            "description": description,
-                            "usage": usage
-                        }
+                    subcommand: {
+                        "description": description,
+                        "usage": usage
                     }
                 }
                 with open("./data/help.json", "r", encoding="utf8") as f:
                     data = json.load(f)
-                data[command].update(_help)
+                data[command]["subcommands"].update(_help)
                 with open("./data/help.json", 'w', encoding='utf8') as f:
                     json.dump(data, f, indent=4, ensure_ascii=False)
-
 
     @commands.command(name="commands")
     async def idkjotain(self, ctx):
