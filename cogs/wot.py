@@ -46,9 +46,9 @@ class template(commands.Cog):
             user_id = str(user_id)
             data = await self.getdata_list(user_id)
             user_data = data["data"][user_id]
-            des = "Account made:" + datetime.utcfromtimestamp(int(user_data["created_at"])).strftime(' %d-%m-%Y %H:%M:%S\n')
+            des = "Account made:" + datetime.datetime.utcfromtimestamp(int(user_data["created_at"])).strftime(' %d-%m-%Y %H:%M:%S\n')
             des = des + "Rank: " + str(user_data["global_rating"])
-            des = des + "\nlast battle:" + datetime.utcfromtimestamp(int(user_data["last_battle_time"])).strftime(' %d-%m-%Y %H:%M:%S\n')
+            des = des + "\nlast battle:" + datetime.datetime.utcfromtimestamp(int(user_data["last_battle_time"])).strftime(' %d-%m-%Y %H:%M:%S\n')
             embed = discord.Embed(title="player stats for player " + user_data["nickname"], color=0x4d4d4d, description=des)
             user_stats = user_data["statistics"]["all"]
             stats_des = "max_xp: " + str(user_stats["max_xp"])
