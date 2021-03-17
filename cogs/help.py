@@ -150,11 +150,12 @@ class help(commands.Cog):
             if subcommand is None or subcommand.lower() == "none":
                 with open("./data/help.json", "r", encoding="utf8") as f:
                     data = json.load(f)
-                subcommands = {"subcommands": {data[command]["subcommands"]}}
+                subcommands = data[command]["subcommands"]
                 _help = {
                     command: {
                         "description": description,
                         "usage": usage,
+                        "subcommands": subcommands
                     }
                 }
 
