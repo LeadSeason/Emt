@@ -82,7 +82,7 @@ class help(commands.Cog):
         else:
             await ctx.send("Command doesn't exist")
 
-    @commands.command()
+    @commands.command(hidden=True)
     @commands.is_owner()
     async def helprm(self, ctx, command=None, subcommand=None):
         if command is None:
@@ -99,9 +99,15 @@ class help(commands.Cog):
             )
             await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(hidden=True)
     @commands.is_owner()
     async def helpadd(self, ctx, command=None, subcommand=None, description=None, usage=None):
+        commands_list = []
+        for x in self.bot.commands:
+            commands_list.append(str(x))
+        if not command in commands_list:
+            await ctx.send(f"{command} in not a command")
+            return
         if command is None:
             embed = discord.Embed(title="Helpadd")
             embed.add_field(
