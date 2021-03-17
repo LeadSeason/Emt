@@ -150,7 +150,11 @@ class dev(commands.Cog):
             await ctx.send(e)
 
     @dev.command(aliases=["listcogs", "lscogs", "lsc"])
-    async def _list(self, ctx):
+    async def _list(self, ctx, *arg):
+        if "debug" in [x.lower() for x in arg]:
+            debug = True
+        else:
+            debug = False
 
         h = os.scandir("./cogs")
         list_ = []
@@ -183,7 +187,8 @@ class dev(commands.Cog):
         embed = discord.Embed(title="Cogs List")
         embed.add_field(name="Cogs", value=_cogs, inline=True)
         embed.add_field(name="Loaded", value=_loaded_cogs, inline=True)
-        embed.add_field(name="debug", value=str(_loaded), inline=False)
+        if debug:
+            embed.add_field(name="debug", value=str(_loaded), inline=False)
         await ctx.send(embed=embed)
 
 

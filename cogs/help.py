@@ -147,17 +147,19 @@ class help(commands.Cog):
         elif usage is None:
             await ctx.send("missing usage arg\ndid you froget to add subcommand=none")
         else:
-            print(f'"{subcommand}"')
             if subcommand is None or subcommand.lower() == "none":
+                with open("./data/help.json", "r", encoding="utf8") as f:
+                    data = json.load(f)
+                subcommands = data[command]["subcommands"]
                 _help = {
                     command: {
                         "description": description,
                         "usage": usage,
                     }
                 }
-                with open("./data/help.json", "r", encoding="utf8") as f:
-                    data = json.load(f)
+
                 data.update(_help)
+                data[command]["subcommands"].update(subcommands)
                 with open("./data/help.json", 'w', encoding='utf8') as f:
                     json.dump(data, f, indent=4, ensure_ascii=False)
             else:
