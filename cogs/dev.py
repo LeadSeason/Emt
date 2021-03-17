@@ -17,42 +17,7 @@ class dev(commands.Cog):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(
                 title="Dev Tools",
-                description="Dev tools wip"
-            )
-            embed.add_field(
-                name="clear",
-                value="prints 500 newlines",
-                inline=False
-            )
-            embed.add_field(
-                name="Restart",
-                value="Restarts bot",
-                inline=False
-            )
-            embed.add_field(
-                name="Load",
-                value="Loads a cog",
-                inline=False
-            )
-            embed.add_field(
-                name="Unload",
-                value="Unloads a cog",
-                inline=False
-            )
-            embed.add_field(
-                name="Reload",
-                value="Reloads a cog",
-                inline=False
-            )
-            embed.add_field(
-                name="ListCogs",
-                value="List cogs",
-                inline=False
-            )
-            embed.add_field(
-                name="update",
-                value="updates to master",
-                inline=False
+                description="Use ;help dev to get help"
             )
             await ctx.send(embed=embed)
         else:
