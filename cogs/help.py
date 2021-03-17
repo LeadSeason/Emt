@@ -170,8 +170,8 @@ class help(commands.Cog):
                     }
                 }
                 with open("./data/help.json", "r", encoding="utf8") as f:
-                    data = json.load(f)[command]
-                data.update(_help)
+                    data = json.load(f)
+                data[command].update(_help)
                 with open("./data/help.json", 'w', encoding='utf8') as f:
                     json.dump(data, f, indent=4, ensure_ascii=False)
 
