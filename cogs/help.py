@@ -163,7 +163,7 @@ class help(commands.Cog):
         for x in hidden:
             try:
                 commands_list.remove(x)
-            except IndexError:
+            except ValueError:
                 pass
 
         outstr = ""
