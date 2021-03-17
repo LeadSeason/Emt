@@ -155,18 +155,10 @@ class help(commands.Cog):
     @commands.command(name="commands")
     async def idkjotain(self, ctx):
         commands_list = []
-        hidden = ["dev", "helpsubadd", "helpadd"]
-    
         for x in self.bot.commands:
             if not x.hidden:
                 commands_list.append(str(x))
-        """
-        for x in hidden:
-            try:
-                commands_list.remove(x)
-            except ValueError:
-                pass
-        """
+
         outstr = ""
         for x in commands_list:
             outstr = outstr + x + "\n"

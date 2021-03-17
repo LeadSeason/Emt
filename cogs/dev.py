@@ -123,6 +123,12 @@ class dev(commands.Cog):
                             value=str(e),
                             inline=False
                         )
+                    except commands.ExtensionNotLoaded:
+                        embed.add_field(
+                            name=f'Cog "{h}" updated',
+                            value=_l,
+                            inline=False
+                        )
                     else:
                         embed.add_field(
                             name=f'Cog "{h}" updated',
