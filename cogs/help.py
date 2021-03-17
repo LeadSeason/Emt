@@ -48,11 +48,12 @@ class help(commands.Cog):
                         keys = ""
                         for x in list(d["subcommands"].keys()):
                             keys = keys + x + " "
-                        embed.add_field(
-                            name="Subcommands",
-                            value=keys,
-                            inline=False
-                        )
+                        if not keys == "":
+                            embed.add_field(
+                                name="Subcommands",
+                                value=keys,
+                                inline=False
+                            )
                     except KeyError as e:
                         print(f"error:{e}")
                         pass
