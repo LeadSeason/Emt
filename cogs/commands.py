@@ -522,6 +522,19 @@ class play(commands.Cog):
         )
         await ctx.send(embed=embed)
 
+    @commands.command()
+    async def rps(self, ctx, arg):
+        if arg.lower() in ["rock", "paper", "scissors"]:
+            if arg.lower() == "rock":
+                embed = discord.Embed(title="I Won", description="You chose Rock, I choose Paper.")
+                await ctx.send(embed=embed)
+            if arg.lower() == "paper":
+                embed = discord.Embed(title="I Won", description="You chose Paper, I choose Scissors.")
+                await ctx.send(embed=embed)
+            if arg.lower() == "scissors":
+                embed = discord.Embed(title="I Won", description="You chose Scissors, I choose Rock.")
+                await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(play(bot))
