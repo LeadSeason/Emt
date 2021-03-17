@@ -158,14 +158,15 @@ class help(commands.Cog):
         hidden = ["dev", "helpsubadd", "helpadd"]
     
         for x in self.bot.commands:
-            commands_list.append(str(x))
-
+            if not x.hidden:
+                commands_list.append(str(x))
+        """
         for x in hidden:
             try:
                 commands_list.remove(x)
             except ValueError:
                 pass
-
+        """
         outstr = ""
         for x in commands_list:
             outstr = outstr + x + "\n"
