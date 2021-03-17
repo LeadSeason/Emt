@@ -59,6 +59,10 @@ class dev(commands.Cog):
             pass
 
     @dev.command()
+    async def clear(self, ctx):
+        print("\n" * 500)
+
+    @dev.command()
     async def restart(self, ctx):
         await ctx.send("Shutting down")
         await self.bot.logout()
