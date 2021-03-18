@@ -538,6 +538,14 @@ class play(commands.Cog):
             embed = discord.Embed(title="Usage", description="You need to choose rock, paper or scissors.")
             await ctx.send(embed=embed)
 
+    @commands.command()
+    async def coinflip(self, ctx):
+        if random.randint(1, 2) = 1:
+            await ctx.send("you rolled tails\nhttps://media.discordapp.net/attachments/613368769313636429/822004933376212992/coin.jpg")
+        else:
+            await ctx.send("you rolled heads\nhttps://media.discordapp.net/attachments/613368769313636429/822004946563760198/coin_2.jpg")
+
+
 
 def setup(bot):
     bot.add_cog(play(bot))
