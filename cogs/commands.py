@@ -540,11 +540,14 @@ class play(commands.Cog):
 
     @commands.command()
     async def coinflip(self, ctx):
-        if random.randint(1, 2) = 1:
-            await ctx.send("you rolled tails\nhttps://media.discordapp.net/attachments/613368769313636429/822004933376212992/coin.jpg")
+        if random.randint(1, 2) == 1:
+            embed = discord.Embed(title="You rollde tails")
+            embed.set_image(url="https://media.discordapp.net/attachments/613368769313636429/822004933376212992/coin.jpg")
+            await ctx.send(embed=embed)
         else:
-            await ctx.send("you rolled heads\nhttps://media.discordapp.net/attachments/613368769313636429/822004946563760198/coin_2.jpg")
-
+            embed = discord.Embed(title="You rollde heads")
+            embed.set_image(url="https://media.discordapp.net/attachments/613368769313636429/822004946563760198/coin_2.jpg")
+            await ctx.send(embed=embed)
 
 
 def setup(bot):
