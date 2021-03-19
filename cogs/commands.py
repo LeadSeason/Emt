@@ -520,7 +520,7 @@ class play(commands.Cog):
                             }
                         }
                     }
-                    data[command]["subcommands"].update(_help)
+                    data[command].update(_help)
                     with open("./data/help.json", 'w', encoding='utf8') as f:
                         json.dump(data, f, indent=4, ensure_ascii=False)
 
