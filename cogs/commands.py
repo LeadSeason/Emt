@@ -526,7 +526,7 @@ class play(commands.Cog):
                 l2 += "True\n"
             else:
                 l1 += x + "\n"
-                l2 += "True\n"
+                l2 += "False\n"
 
         embed = discord.Embed(title="helpls")
         embed.add_field(name="keys", value=l1, inline=True)
