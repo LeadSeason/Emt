@@ -457,9 +457,6 @@ class play(commands.Cog):
         commands_list = []
         for x in self.bot.commands:
             commands_list.append(str(x))
-        if command not in commands_list:
-            await ctx.send(f"{command} in not a command")
-            return
         if command is None:
             embed = discord.Embed(title="Helpadd")
             embed.add_field(
@@ -473,6 +470,9 @@ class play(commands.Cog):
                 inline=False
             )
             await ctx.send(embed=embed)
+        elif command not in commands_list:
+            await ctx.send(f"{command} in not a command")
+            return
         elif usage is None:
             await ctx.send("missing usage arg\ndid you froget to add subcommand=none")
         else:
