@@ -505,6 +505,34 @@ class play(commands.Cog):
                 with open("./data/help.json", 'w', encoding='utf8') as f:
                     json.dump(data, f, indent=4, ensure_ascii=False)
 
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def helpls(self, ctx):
+        commands_list = []
+        for x in self.bot.commands:
+            commands_list.append(str(x))
+
+        with open("./data/help.json", "r", encoding="utf8") as f:
+            data = json.load(f)
+
+        k = list(data.keys())
+
+        l1 = ""
+        l2 = ""
+
+        for x in commands_list:
+            if x in k:
+                l1 += x + "\n"
+                l2 += "True\n"
+            else:
+                l1 += x + "\n"
+                l2 += "True\n"
+
+        embed = discord.Embed(title="helpls")
+        embed.add_field(name="keys", value=l1, inline=True)
+        embed.add_field(name="comands", value=l2, inline=True)
+        await ctx.send(embed=embed)
+
     @commands.command(name="commands")
     async def idkjotain(self, ctx):
         commands_list = []
@@ -548,7 +576,6 @@ class play(commands.Cog):
             embed = discord.Embed(title="You rolled heads")
             embed.set_image(url="https://media.discordapp.net/attachments/613368769313636429/822034634383818752/coin_2.png")
             await ctx.send(embed=embed)
-
 
 
 def setup(bot):
