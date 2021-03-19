@@ -530,7 +530,7 @@ class play(commands.Cog):
 
         embed = discord.Embed(title="helpls")
         embed.add_field(name="keys", value=l1, inline=True)
-        embed.add_field(name="comands", value=l2, inline=True)
+        embed.add_field(name="commands", value=l2, inline=True)
         await ctx.send(embed=embed)
 
     @commands.command(name="commands")
