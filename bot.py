@@ -5,27 +5,30 @@ from discord.ext import commands
 import subprocess
 
 
-def get_token():
+class CogDisabled(Exception):
+    pass
+
+
+def get_conf(arg):
     with open("./conf/discord.conf.json") as discord_conf:
-        return json.load(discord_conf)["token"]
+        return json.load(discord_conf)[arg]
 
 
 def bot_cog_load(bot):
 
+    _list = []
     try:
-        h = os.scandir("./cogs")
+        with os.scandir("./cogs") as h:
+            for x in h:
+                if not x.name.startswith(".") and x.is_file():
+                    _list.append(x.name)
     except FileNotFoundError:
         print("No ./cogs/ folder can't load cogs")
         return
 
-    _list = []
-    for x in h:
-        if x.is_file():
-            _list.append(x.name)
-
     try:
         _list.remove(".disabled")
-    except Exception:
+    except ValueError:
         pass
 
     try:
@@ -43,7 +46,7 @@ def bot_cog_load(bot):
         try:
             _cog_name = "cogs." + x.replace(".py", "")
             if x in disabled:
-                raise NameError
+                raise CogDisabled
             importlib.import_module(_cog_name)
             bot.load_extension(_cog_name)
         except commands.ExtensionError as e:
@@ -51,7 +54,7 @@ def bot_cog_load(bot):
                 f"""Failure: Cogs: "{_cog_name}" failed to load"""
             )
             print(e)
-        except NameError:
+        except CogDisabled:
             print(
                 f"""Disabled: Cogs: "{_cog_name}" wasn't loaded"""
             )
@@ -69,7 +72,7 @@ p = subprocess.Popen(["git", "pull"])
 p.wait()
 
 bot = commands.Bot(
-    command_prefix=";",
+    command_prefix=get_conf("prefix"),
     case_insensitive=True,
     self_bot=False,
     help_command=None
@@ -82,4 +85,4 @@ async def on_ready():
 
 
 bot_cog_load(bot)
-bot.run(str(get_token()))
+bot.run(str(get_conf("token")))
