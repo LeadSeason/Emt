@@ -483,22 +483,29 @@ class play(commands.Cog):
                 try:
                     subcommands = data[command]["subcommands"]
                 except KeyError:
-                    subcommand = None
-                    pass
-
-                _help = {
-                    command: {
-                        "description": description,
-                        "usage": usage,
-                        "subcommands": subcommands
+                    _help = {
+                        command: {
+                            "description": description,
+                            "usage": usage,
+                        }
                     }
-                }
+                    data.update(_help)
+                    with open("./data/help.json", 'w', encoding='utf8') as f:
+                        json.dump(data, f, indent=4, ensure_ascii=False)
+                else:
+                    _help = {
+                        command: {
+                            "description": description,
+                            "usage": usage,
+                            "subcommands": subcommands
+                        }
+                    }
 
-                data.update(_help)
-                if not subcommand is None:
-                    data[command].update(subcommands)
-                with open("./data/help.json", 'w', encoding='utf8') as f:
-                    json.dump(data, f, indent=4, ensure_ascii=False)
+                    data.update(_help)
+                    if subcommand is not None:
+                        data[command].update(subcommands)
+                    with open("./data/help.json", 'w', encoding='utf8') as f:
+                        json.dump(data, f, indent=4, ensure_ascii=False)
             else:
                 _help = {
                     subcommand: {
