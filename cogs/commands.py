@@ -479,7 +479,12 @@ class play(commands.Cog):
             if subcommand is None or subcommand.lower() == "none":
                 with open("./data/help.json", "r", encoding="utf8") as f:
                     data = json.load(f)
-                subcommands = data[command]["subcommands"]
+
+                try:
+                    subcommands = data[command]["subcommands"]
+                except KeyError:
+                    pass
+
                 _help = {
                     command: {
                         "description": description,
