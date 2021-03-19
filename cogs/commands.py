@@ -483,6 +483,7 @@ class play(commands.Cog):
                 try:
                     subcommands = data[command]["subcommands"]
                 except KeyError:
+                    subcommand = None
                     pass
 
                 _help = {
@@ -494,7 +495,8 @@ class play(commands.Cog):
                 }
 
                 data.update(_help)
-                data[command].update(subcommands)
+                if not subcommand is None:
+                    data[command].update(subcommands)
                 with open("./data/help.json", 'w', encoding='utf8') as f:
                     json.dump(data, f, indent=4, ensure_ascii=False)
             else:
