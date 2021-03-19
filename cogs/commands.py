@@ -541,7 +541,8 @@ class play(commands.Cog):
         commands_list = []
         for x in self.bot.commands:
             commands_list.append(str(x))
-
+        commands_list.sort()
+        
         with open("./data/help.json", "r", encoding="utf8") as f:
             data = json.load(f)
 
