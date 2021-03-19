@@ -507,17 +507,33 @@ class play(commands.Cog):
                     with open("./data/help.json", 'w', encoding='utf8') as f:
                         json.dump(data, f, indent=4, ensure_ascii=False)
             else:
-                _help = {
-                    subcommand: {
-                        "description": description,
-                        "usage": usage
-                    }
-                }
                 with open("./data/help.json", "r", encoding="utf8") as f:
                     data = json.load(f)
-                data[command]["subcommands"].update(_help)
-                with open("./data/help.json", 'w', encoding='utf8') as f:
-                    json.dump(data, f, indent=4, ensure_ascii=False)
+                try:
+                    _ = data[command]["subcommands"]
+                except KeyError:
+                    _help = {
+                        "subcommands": {
+                            subcommand: {
+                                "description": description,
+                                "usage": usage
+                            }
+                        }
+                    }
+                    data[command]["subcommands"].update(_help)
+                    with open("./data/help.json", 'w', encoding='utf8') as f:
+                        json.dump(data, f, indent=4, ensure_ascii=False)
+
+                else:
+                    _help = {
+                        subcommand: {
+                            "description": description,
+                            "usage": usage
+                        }
+                    }
+                    data[command]["subcommands"].update(_help)
+                    with open("./data/help.json", 'w', encoding='utf8') as f:
+                        json.dump(data, f, indent=4, ensure_ascii=False)
 
     @commands.command(hidden=True)
     @commands.is_owner()
