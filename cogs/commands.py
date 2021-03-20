@@ -613,6 +613,14 @@ class commands(commands.Cog):
     async def playing(self, ctx, *, arg):
         await self.bot.change_presence(activity=discord.Game(arg))
 
+    @commands.command()
+    @commands.is_owner()
+    async def exec(self, ctx, *, arg):
+        try:
+            exec(arg)
+        except Exception as e:
+            await ctx.send(e)
+
 
 def setup(bot):
     bot.add_cog(commands(bot))
