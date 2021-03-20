@@ -13,10 +13,10 @@ import datetime
 import time
 import os
 
-# cog play
+# cog commands
 
 
-class play(commands.Cog):
+class commands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.generate_jsonfile()
@@ -542,7 +542,7 @@ class play(commands.Cog):
         for x in self.bot.commands:
             commands_list.append(str(x))
         commands_list.sort()
-        
+
         with open("./data/help.json", "r", encoding="utf8") as f:
             data = json.load(f)
 
@@ -608,6 +608,11 @@ class play(commands.Cog):
             embed.set_image(url="https://media.discordapp.net/attachments/613368769313636429/822034634383818752/coin_2.png")
             await ctx.send(embed=embed)
 
+    @commands.command()
+    @commands.is_owner()
+    async def playing(self, ctx, *, arg):
+        await self.bot.change_presence(activity=discord.Game(arg))
+
 
 def setup(bot):
-    bot.add_cog(play(bot))
+    bot.add_cog(commands(bot))
