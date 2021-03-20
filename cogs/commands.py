@@ -610,7 +610,7 @@ class commands(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def playing(self, ctx, *, arg):
+    async def playing(self, ctx, *, arg=None):
         await self.bot.change_presence(activity=discord.Game(arg))
 
     @commands.command()
