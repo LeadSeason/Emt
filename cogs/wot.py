@@ -4,7 +4,7 @@ import json
 import aiohttp
 import asyncio
 import datetime
-import uwuwify
+import uwuify
 # cog template
 
 
