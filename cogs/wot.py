@@ -4,6 +4,7 @@ import json
 import aiohttp
 import asyncio
 import datetime
+import uwuwify
 # cog template
 
 
@@ -66,6 +67,12 @@ class template(commands.Cog):
 
             await ctx.send(embed=embed)
 
+    @commands.command()
+    async def tankstats(self, ctx, username: str = None):
+        flags = uwuify.SMILEY | uwuify.YU
+        await ctx.send())
+        ctx.send(f"sen tankin nimi on{uwuify.uwu(username, flags=flags)}")
+        
 
 def setup(bot):
     bot.add_cog(template(bot))
