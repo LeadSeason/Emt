@@ -71,7 +71,7 @@ class template(commands.Cog):
     async def tankstats(self, ctx, username: str = None):
         flags = uwuify.SMILEY | uwuify.YU
         await ctx.send(f"sen tankin nimi on{uwuify.uwu(username, flags=flags)}")
-        
+
 
 def setup(bot):
     bot.add_cog(template(bot))
