@@ -16,7 +16,7 @@ import os
 # cog commands
 
 
-class commands(commands.Cog):
+class command(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.generate_jsonfile()
@@ -325,7 +325,7 @@ class commands(commands.Cog):
             raise RuntimeError("Unknow platform")
 
         p.wait()
-        out, err = p.communicate()
+        out, _ = p.communicate()
         await ctx.send(str(out).replace("b'", "", 1).replace("\\n'", ""))
 
     @commands.command()
@@ -738,5 +738,6 @@ class commands(commands.Cog):
         ]
         await ctx.send(random.choice(jokes))
 
+
 def setup(bot):
-    bot.add_cog(commands(bot))
+    bot.add_cog(command(bot))
