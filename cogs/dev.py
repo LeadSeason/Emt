@@ -46,7 +46,7 @@ class dev(commands.Cog):
                 stderr=subprocess.PIPE
             )
             p.wait()
-            out, err = p.communicate()
+            out, _ = p.communicate()
 
             jotain = re.findall(r"cogs/.+?.py", str(out))
             jotain2 = re.findall(r"\|.+?\\n", str(out))
