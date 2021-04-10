@@ -1,6 +1,7 @@
 /cogs/__pycache__
 /conf
 /__pycache__
-/data/*
+/data/waifu/*
+/data/help.json
+/data/foods.json
 /logs
-data/foods.json
