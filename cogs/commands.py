@@ -12,6 +12,9 @@ from bs4 import BeautifulSoup as Soup
 import datetime
 import time
 import os
+import string
+import aiohttp
+import aiofiles
 
 # cog commands
 
@@ -309,6 +312,22 @@ class command(commands.Cog):
 
     @commands.command(aliases=["ryt"])
     async def randomytvid(self, ctx):
+        async with aiofiles.open("./conf/discord.conf.json") as f:
+            API_KEY = json.loads(await f.read())["ytapi"]
+
+        rand = "".join(random.choice(string.ascii_letters + string.digits) for _ in range(3))
+        url = f"https://www.googleapis.com/youtube/v3/search?key={API_KEY}&maxResults=1&part=snippet&type=video&q={rand}"
+        async with aiohttp.ClientSession() as s:
+            async with s.get(url) as r:
+                if r.status == 200:
+                    data = await r.json()
+                else:
+                    print(f"Error: Website responce:{r.status}")
+
+        vidurl = "https://youtu.be/" + "".join(x["id"]["videoId"] for x in data["items"])
+        await ctx.send(vidurl)
+
+        """
         if platform.system() == "Windows":
             p = subprocess.Popen(
                 ["py", "./utils/ytapi.py"],
@@ -327,6 +346,7 @@ class command(commands.Cog):
         p.wait()
         out, _ = p.communicate()
         await ctx.send(str(out).replace("b'", "", 1).replace("\\n'", ""))
+        """
 
     @commands.command()
     async def uwuify(self, ctx, *, arg):
