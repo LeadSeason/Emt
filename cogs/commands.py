@@ -327,27 +327,6 @@ class command(commands.Cog):
         vidurl = "https://youtu.be/" + "".join(x["id"]["videoId"] for x in data["items"])
         await ctx.send(vidurl)
 
-        """
-        if platform.system() == "Windows":
-            p = subprocess.Popen(
-                ["py", "./utils/ytapi.py"],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE
-            )
-        elif platform.system() == "Linux":
-            p = subprocess.Popen(
-                ["python3", "./utils/ytapi.py"],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE
-            )
-        else:
-            raise RuntimeError("Unknow platform")
-
-        p.wait()
-        out, _ = p.communicate()
-        await ctx.send(str(out).replace("b'", "", 1).replace("\\n'", ""))
-        """
-
     @commands.command()
     async def uwuify(self, ctx, *, arg):
         flags = uwuify.SMILEY | uwuify.YU
