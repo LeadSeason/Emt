@@ -95,150 +95,153 @@ class command(commands.Cog):
 
     @commands.command(aliases=["fl", "sapuska"])
     async def foodlist(self, ctx, *args):
-        skip = False
         try:
-            file_stat = os.stat("./data/foods.json").st_mtime
+            skip = False
+            try:
+                file_stat = os.stat("./data/foods.json").st_mtime
 
-        except FileNotFoundError:
-            h = self.generate_jsonfile()
-            if h == "error":
-                await ctx.channel.send(
-                    "there was a error while making the json file")
-                skip = True
-
-        else:
-            if time.time() - file_stat > 3600:
+            except FileNotFoundError:
                 h = self.generate_jsonfile()
                 if h == "error":
                     await ctx.channel.send(
                         "there was a error while making the json file")
                     skip = True
 
-        sapuska = ""
-
-        if args == ():
-            sapuska = "Viikon sapuskat"
-            args = ["ma", "ti", "ke", "to", "pe"]
-
-        date = ""
-        dates = []
-        ma_args = ["manantai", "ma", "mon", "monday"]
-        ti_args = ["tiistai", "ti", "tue", "tues", "tuesday"]
-        ke_args = ["keskiviikko", "ke", "wed", "weds", "wednesday"]
-        to_args = ["torstai", "to", "thu", "thur", "thurs", "thursday"]
-        pe_args = ["perjantai", "pe", "fri", "friday"]
-        today_args = ["today", "tänään"]
-        help_args = ["help", "apua", "h", "?"]
-
-        for input_arg in args:
-            date = input_arg.lower()
-
-            if date in ma_args:
-                if "ma" in dates:
-                    pass
-                else:
-                    dates.append("ma")
-
-            elif date in ti_args:
-                if "ti" in dates:
-                    pass
-                else:
-                    dates.append("ti")
-
-            elif date in ke_args:
-                if "ke" in dates:
-                    pass
-                else:
-                    dates.append("ke")
-
-            elif date in to_args:
-                if "to" in dates:
-                    pass
-                else:
-                    dates.append("to")
-
-            elif date in pe_args:
-                if "pe" in dates:
-                    pass
-                else:
-                    dates.append("pe")
-
-            elif date in help_args:
-                if "help" in dates:
-                    pass
-                else:
-                    dates.append("help")
-            elif date in today_args:
-                if "today" in dates:
-                    pass
-                else:
-                    if datetime.datetime.today().weekday() == 0:
-                        dates.append("ma")
-                    elif datetime.datetime.today().weekday() == 1:
-                        dates.append("ti")
-                    elif datetime.datetime.today().weekday() == 2:
-                        dates.append("ke")
-                    elif datetime.datetime.today().weekday() == 3:
-                        dates.append("to")
-                    elif datetime.datetime.today().weekday() == 4:
-                        dates.append("pe")
-                    else:
-                        pass
             else:
-                pass
+                if time.time() - file_stat > 3600:
+                    h = self.generate_jsonfile()
+                    if h == "error":
+                        await ctx.channel.send(
+                            "there was a error while making the json file")
+                        skip = True
 
-        args = dates
+            sapuska = ""
 
-        if args == []:
-            embed = discord.Embed(
-                title="",
-                description="""
-                invalid argument where given
-                see ;foodlist help for help
-                """,
-                color=0xFF5733
-            )
-            await ctx.send(embed=embed)
-            skip = True
+            if args == ():
+                sapuska = "Viikon sapuskat"
+                args = ["ma", "ti", "ke", "to", "pe"]
 
-        if "help" in args:
-            des = """
-            ",foodlist help" to show this
-            ",foodlist" to show all days
-            ",foodlist specific day" to show a specific day
-            valid days are ma ti ke to pe
-            """
-            embed = discord.Embed(
-                title="food list",
-                description=des,
-                color=0x4d4d4d
-            )
-            await ctx.send(embed=embed)
-            skip = True
+            date = ""
+            dates = []
+            ma_args = ["manantai", "ma", "mon", "monday"]
+            ti_args = ["tiistai", "ti", "tue", "tues", "tuesday"]
+            ke_args = ["keskiviikko", "ke", "wed", "weds", "wednesday"]
+            to_args = ["torstai", "to", "thu", "thur", "thurs", "thursday"]
+            pe_args = ["perjantai", "pe", "fri", "friday"]
+            today_args = ["today", "tänään"]
+            help_args = ["help", "apua", "h", "?"]
 
-        if not skip:
-            with open("./data/foods.json", encoding='utf-8') as s:
-                foodlist = json.load(s)
-            await ctx.send(str(foodlist))
-            if foodlist is {'': []}:
-                await ctx.send("There is food today 😞")
+            for input_arg in args:
+                date = input_arg.lower()
 
-            if not sapuska == "Viikon sapuskat":
-                sapuska = "Sapuskat"
-                if len(args) == 1:
-                    sapuska = "Tänä päivän Sapuskaa"
+                if date in ma_args:
+                    if "ma" in dates:
+                        pass
+                    else:
+                        dates.append("ma")
 
-            embed = discord.Embed(title=sapuska, color=0x4d4d4d)
+                elif date in ti_args:
+                    if "ti" in dates:
+                        pass
+                    else:
+                        dates.append("ti")
 
-            args2 = ["ma", "ti", "ke", "to", "pe"]
-            for x in args2:
-                if x in args:
-                    k = foodlist[x]
-                    foods = "\n"
-                    foods = foods.join(k[1:])
-                    embed.add_field(name=k[0], value=foods, inline=False)
+                elif date in ke_args:
+                    if "ke" in dates:
+                        pass
+                    else:
+                        dates.append("ke")
 
-            await ctx.send(embed=embed)
+                elif date in to_args:
+                    if "to" in dates:
+                        pass
+                    else:
+                        dates.append("to")
+
+                elif date in pe_args:
+                    if "pe" in dates:
+                        pass
+                    else:
+                        dates.append("pe")
+
+                elif date in help_args:
+                    if "help" in dates:
+                        pass
+                    else:
+                        dates.append("help")
+                elif date in today_args:
+                    if "today" in dates:
+                        pass
+                    else:
+                        if datetime.datetime.today().weekday() == 0:
+                            dates.append("ma")
+                        elif datetime.datetime.today().weekday() == 1:
+                            dates.append("ti")
+                        elif datetime.datetime.today().weekday() == 2:
+                            dates.append("ke")
+                        elif datetime.datetime.today().weekday() == 3:
+                            dates.append("to")
+                        elif datetime.datetime.today().weekday() == 4:
+                            dates.append("pe")
+                        else:
+                            pass
+                else:
+                    pass
+
+            args = dates
+
+            if args == []:
+                embed = discord.Embed(
+                    title="",
+                    description="""
+                    invalid argument where given
+                    see ;foodlist help for help
+                    """,
+                    color=0xFF5733
+                )
+                await ctx.send(embed=embed)
+                skip = True
+
+            if "help" in args:
+                des = """
+                ",foodlist help" to show this
+                ",foodlist" to show all days
+                ",foodlist specific day" to show a specific day
+                valid days are ma ti ke to pe
+                """
+                embed = discord.Embed(
+                    title="food list",
+                    description=des,
+                    color=0x4d4d4d
+                )
+                await ctx.send(embed=embed)
+                skip = True
+
+            if not skip:
+                with open("./data/foods.json", encoding='utf-8') as s:
+                    foodlist = json.load(s)
+                await ctx.send(str(foodlist))
+                if foodlist is {'': []}:
+                    await ctx.send("There is food today 😞")
+
+                if not sapuska == "Viikon sapuskat":
+                    sapuska = "Sapuskat"
+                    if len(args) == 1:
+                        sapuska = "Tänä päivän Sapuskaa"
+
+                embed = discord.Embed(title=sapuska, color=0x4d4d4d)
+
+                args2 = ["ma", "ti", "ke", "to", "pe"]
+                for x in args2:
+                    if x in args:
+                        k = foodlist[x]
+                        foods = "\n"
+                        foods = foods.join(k[1:])
+                        embed.add_field(name=k[0], value=foods, inline=False)
+
+                await ctx.send(embed=embed)
+        except Exception as e:
+            await ctx.send(traceback.format_exc())
 
     @commands.command(name="typing")
     async def _typing(self, ctx, arg="5"):
