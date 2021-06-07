@@ -20,7 +20,6 @@ import traceback
 # cog commands
 
 
-
 class command(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -220,7 +219,7 @@ class command(commands.Cog):
         if not skip:
             with open("./data/foods.json", encoding='utf-8') as s:
                 foodlist = json.load(s)
-
+            await ctx.send(str(foodlist))
             if foodlist is {'': []}:
                 await ctx.send("There is food today 😞")
 
