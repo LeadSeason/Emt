@@ -20,6 +20,7 @@ import traceback
 # cog commands
 
 
+
 class command(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
