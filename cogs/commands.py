@@ -15,6 +15,7 @@ import os
 import string
 import aiohttp
 import aiofiles
+import traceback
 
 # cog commands
 
@@ -89,7 +90,7 @@ class command(commands.Cog):
                 # json.dump(data, f, indent=4, ensure_ascii=False)
             return "success"
         except Exception as e:
-            print(e)
+            traceback.print_last
             return "error"
 
     @commands.command(aliases=["fl", "sapuska"])
@@ -219,7 +220,7 @@ class command(commands.Cog):
             with open("./data/foods.json", encoding='utf-8') as s:
                 foodlist = json.load(s)
 
-            if str(foodlist) is {'': []}:
+            if foodlist is {'': []}:
                 await ctx.send("There is food today 😞")
 
             if not sapuska == "Viikon sapuskat":
