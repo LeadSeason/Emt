@@ -222,7 +222,7 @@ class command(commands.Cog):
                     foodlist = json.load(s)
 
                 if "" in foodlist:
-                    await ctx.send("There is food today 😞")
+                    await ctx.send("There is food today 😭")
                 else:
                     if not sapuska == "Viikon sapuskat":
                         sapuska = "Sapuskat"
