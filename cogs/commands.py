@@ -223,23 +223,23 @@ class command(commands.Cog):
                 await ctx.send(str(foodlist)) # debug
                 if "" in foodlist:
                     await ctx.send("There is food today 😞")
+                else:
+                    if not sapuska == "Viikon sapuskat":
+                        sapuska = "Sapuskat"
+                        if len(args) == 1:
+                            sapuska = "Tänä päivän Sapuskaa"
 
-                if not sapuska == "Viikon sapuskat":
-                    sapuska = "Sapuskat"
-                    if len(args) == 1:
-                        sapuska = "Tänä päivän Sapuskaa"
+                    embed = discord.Embed(title=sapuska, color=0x4d4d4d)
 
-                embed = discord.Embed(title=sapuska, color=0x4d4d4d)
+                    args2 = ["ma", "ti", "ke", "to", "pe"]
+                    for x in args2:
+                        if x in args:
+                            k = foodlist[x]
+                            foods = "\n"
+                            foods = foods.join(k[1:])
+                            embed.add_field(name=k[0], value=foods, inline=False)
 
-                args2 = ["ma", "ti", "ke", "to", "pe"]
-                for x in args2:
-                    if x in args:
-                        k = foodlist[x]
-                        foods = "\n"
-                        foods = foods.join(k[1:])
-                        embed.add_field(name=k[0], value=foods, inline=False)
-
-                await ctx.send(embed=embed)
+                    await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(traceback.format_exc())
 
