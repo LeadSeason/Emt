@@ -220,7 +220,7 @@ class command(commands.Cog):
             if not skip:
                 with open("./data/foods.json", encoding='utf-8') as s:
                     foodlist = json.load(s)
-                await ctx.send(str(foodlist)) # debug
+
                 if "" in foodlist:
                     await ctx.send("There is food today 😞")
                 else:
