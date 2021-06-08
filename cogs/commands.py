@@ -23,7 +23,7 @@ import traceback
 class command(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.generate_jsonfile()
+        # self.generate_jsonfile()
 
     @commands.command(name="typing")
     async def _typing(self, ctx, arg="5"):
