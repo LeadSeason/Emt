@@ -28,6 +28,10 @@ class dev(commands.Cog):
         print("\n" * 500)
 
     @dev.command()
+    async def rmdata(self, ctx, arg):
+        os.remove(f"./data/{arg}")
+
+    @dev.command()
     async def restart(self, ctx):
         await ctx.send("Shutting down")
         await self.bot.logout()
