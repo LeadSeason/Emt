@@ -90,6 +90,12 @@ class fl(commands.Cog):
                 list_food.append(x)
         data.update({date: list_food})
 
+        try:
+            os.stat("./data/")
+        except FileNotFoundError:
+            os.mkdir("./data/")
+            
+
         with open("./data/foods.json", 'w', encoding='utf8') as f:
             json.dump(data, f, ensure_ascii=False)
             # json.dump(data, f, indent=4, ensure_ascii=False)
