@@ -29,7 +29,34 @@ class dev(commands.Cog):
 
     @dev.command()
     async def rmdata(self, ctx, arg):
-        os.remove(f"./data/{arg}")
+
+        origin_file = f"./data/{arg}"
+
+        if os.path.isfile(origin_file):
+
+            if not os.path.isdir("./.trash"):
+                os.mkdir("./.trash")
+            
+            for nuber in range(10 ** 1000):
+                destination_file = f"./.trash/{nuber}-{arg}"
+                if not os.path.isfile(destination_file):
+                    os.rename(origin_file, destination_file)
+                    break
+            
+            embed = discord.Embed(
+                title=f"deleted file: `./data/{arg}`",
+                color=0xff0000
+            )
+            await ctx.send(embed=embed)
+
+
+        else:
+            embed = discord.Embed(
+                title=f"./data/{arg} Does Not exist",
+                color=0xff0000
+            )
+            await ctx.send(embed=embed)
+            
 
     @dev.command()
     async def restart(self, ctx):
