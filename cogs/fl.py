@@ -112,7 +112,7 @@ class fl(commands.Cog):
 
             else:
                 if time.time() - file_stat > 3600:
-                    h = self.generate_jsonfile()
+                    h = self.genjson()
                     if h == "error":
                         await ctx.channel.send(
                             "there was a error while making the json file")
