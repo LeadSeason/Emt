@@ -2,4 +2,5 @@ discord
 bs4
 requests
 uwuify
-scipy
+aiofiles
+
