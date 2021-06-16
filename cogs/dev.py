@@ -52,7 +52,7 @@ class dev(commands.Cog):
 
         else:
             embed = discord.Embed(
-                title=f"./data/{arg} Does Not exist",
+                title=f"`./data/{arg}` Does Not exist",
                 color=0xff0000
             )
             await ctx.send(embed=embed)
