@@ -118,7 +118,7 @@ class fl(commands.Cog):
 
             else:
                 if time.time() - file_stat > 3600:
-                    h = self.genjson()
+                    h = await self.genjson()
                     if h == "error":
                         await ctx.channel.send(
                             "there was a error while making the json file")
