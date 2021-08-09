@@ -29,7 +29,7 @@ class fl(commands.Cog):
     @commands.is_owner()
     async def genjson(self):
         async with aiohttp.ClientSession() as s:
-            async with s.get("https://www.kpedu.fi/palvelut/ravintolat-ja-ruokalistat/paratiisi-henkil%C3%B6st%C3%B6ravintola") as r:
+            async with s.get("https://www.kpedu.fi/palvelut/ravintolat-ja-ruokalistat/menuetti-ja-pikkumenuetti-opiskelijaravintolat") as r:
                 if r.status == 200:
                     data = await r.text()
                 else:
