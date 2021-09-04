@@ -399,6 +399,10 @@ class command(commands.Cog):
             await ctx.send(e)
 
     @commands.command()
+    async def epicerror(self, ctx, arg="epicerror"):
+        raise arg
+
+    @commands.command()
     async def dadjoke(self, ctx):
         jokes = [
             "What do you call a factory that makes okay products?" "A satisfactory.",

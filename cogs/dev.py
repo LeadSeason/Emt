@@ -3,7 +3,7 @@ import discord
 import os
 import subprocess
 import re
-
+import traceback
 # cog dev
 
 
@@ -22,6 +22,10 @@ class dev(commands.Cog):
             await ctx.send(embed=embed)
         else:
             pass
+
+    @dev.command()
+    async def traceback(self, ctx):
+        await ctx.send(f"```{traceback.format_exc()}```")
 
     @dev.command()
     async def clear(self, ctx):
