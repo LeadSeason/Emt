@@ -1,20 +1,11 @@
 from discord.ext import commands
 import discord
-import random
-import asyncio
-import re
-import subprocess
-import uwuify
-import platform
 import json
-import requests
 from bs4 import BeautifulSoup as Soup
 import datetime
 import time
 import os
-import string
 import aiohttp
-import aiofiles
 import traceback
 
 
@@ -94,13 +85,11 @@ class fl(commands.Cog):
             os.stat("./data/")
         except FileNotFoundError:
             os.mkdir("./data/")
-            
 
         with open("./data/foods.json", 'w', encoding='utf8') as f:
             json.dump(data, f, ensure_ascii=False)
             # json.dump(data, f, indent=4, ensure_ascii=False)
         return "success"
-
 
     @commands.command(aliases=["fl", "sapuska"])
     async def foodlist(self, ctx, *args):
@@ -249,7 +238,7 @@ class fl(commands.Cog):
                             embed.add_field(name=k[0], value=foods, inline=False)
 
                     await ctx.send(embed=embed)
-        except Exception as e:
+        except Exception:
             await ctx.send(traceback.format_exc())
 
 
