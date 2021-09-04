@@ -42,8 +42,10 @@ class mod(commands.Cog):
                 reason = "oi cunt get off the bloody servrer"
 
             await ctx.guild.ban(member, reason=reason)
-            await member.send(f"U have been banned fwom `{ctx.guild.name}` fow wason `{reason}`")
-
+            try:
+                await member.send(f"U have been banned fwom `{ctx.guild.name}` fow wason `{reason}`")
+            except discord.errors.Forbidden:
+                print("chouldent send dm to {member}")
             embed = discord.Embed(title="User has been banned ", description=f"Ban reason: `{reason}`")
             embed.set_thumbnail(url=member.avatar_url)
             await ctx.send(embed=embed)
