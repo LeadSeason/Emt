@@ -2,7 +2,6 @@ from discord.ext import commands
 import discord
 import json
 import aiohttp
-import asyncio
 import datetime
 import uwuify
 # cog template

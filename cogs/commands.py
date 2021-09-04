@@ -3,19 +3,11 @@ import discord
 import random
 import asyncio
 import re
-import subprocess
 import uwuify
-import platform
 import json
-import requests
-from bs4 import BeautifulSoup as Soup
-import datetime
-import time
-import os
 import string
 import aiohttp
 import aiofiles
-import traceback
 
 # cog commands
 
