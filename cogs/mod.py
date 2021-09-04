@@ -58,6 +58,7 @@ class mod(commands.Cog):
         else:
             try:
                 await ctx.guild.unban(member)
+                await ctx.send("Member unbanned")
             except discord.errors.NotFound:
                 await ctx.send("Cant ban member when member isnt banned")
 
