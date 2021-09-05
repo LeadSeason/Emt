@@ -67,9 +67,10 @@ def bot_cog_load(bot):
             print(f"""Enabled : Cogs: "{_cog_name}" loaded""")
 
 
-print("updating...")
-p = subprocess.Popen(["git", "pull"])
-p.wait()
+if get_conf("Update_on_start") is True:
+    print("updating...")
+    p = subprocess.Popen(["git", "pull"])
+    p.wait()
 
 bot = commands.Bot(
     command_prefix=get_conf("prefix"),

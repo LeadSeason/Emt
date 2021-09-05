@@ -1,6 +1,6 @@
 # add cogs by name to this folder
 # any line that starts with # will be ignored
 
-error.py
+#error.py
 template.py
 help.py
