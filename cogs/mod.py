@@ -128,7 +128,9 @@ class mod(commands.Cog):
     @commands.command()
     @commands.has_permissions(manage_nicknames=True)
     async def nick(self, ctx, member: discord.Member, nick=None):
-        if nick is not None:
+        if not member:
+            await ctx.send("specify the user")
+        elif nick is not None:
             name_old = member.display_name
             await member.edit(nick=nick)
             embed = discord.Embed(title=f"Nickname was changed for {name_old}", description=f"Nickname changed from `{name_old}` to {member.mention}")
