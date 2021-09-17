@@ -47,27 +47,27 @@ class fl(commands.Cog):
         date = ""
         data = {}
         for x in food_list:
-            if x.lower().startswith("MAANANTAI".lower()):
+            if "MAANANTAI".lower() in x.lower():
 
                 list_food = []
                 date = "ma"
                 list_food.append(x)
-            elif x.lower().startswith("TIISTAI".lower()):
+            elif "TIISTAI".lower() in x.lower():
                 data.update({date: list_food})
                 list_food = []
                 date = "ti"
                 list_food.append(x)
-            elif x.lower().startswith("LASKIAISTIISTAI".lower()):
+            elif "LASKIAISTIISTAI".lower() in x.lower():
                 data.update({date: list_food})
                 list_food = []
                 date = "ti"
                 list_food.append(x)
-            elif x.lower().startswith("KESKIVIIKKO".lower()):
+            elif "KESKIVIIKKO".lower() in x.lower():
                 data.update({date: list_food})
                 list_food = []
                 date = "ke"
                 list_food.append(x)
-            elif x.lower().startswith("TORSTAI".lower()):
+            elif "TORSTAI".lower() in x.lower():
                 data.update({date: list_food})
                 list_food = []
                 date = "to"
