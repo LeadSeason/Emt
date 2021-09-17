@@ -72,7 +72,7 @@ class fl(commands.Cog):
                 list_food = []
                 date = "to"
                 list_food.append(x)
-            elif x.lower().startswith("PERJANTA".lower()):
+            elif "PERJANTA".lower() in x.lower():
                 data.update({date: list_food})
                 list_food = []
                 date = "pe"
