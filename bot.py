@@ -1,9 +1,11 @@
 import importlib
 import os
+import discord
+from discord import message
 from discord.ext import commands
 import subprocess
 from dotenv import load_dotenv
-
+import json
 
 class CogDisabled(Exception):
     pass
@@ -84,6 +86,14 @@ bot = commands.Bot(
 @bot.event
 async def on_ready():
     print(f"Logged in as {bot.user}")
+    if os.path.isfile("./cache/restart.json"):
+        with open("./cache/restart.json") as io:
+            data = json.load(io)
+            os.remove("./cache/restart.json")
+            user = await bot.fetch_user(int(data["usr"]))
+            print(user.name)
+            message = await user.fetch_message(int(data["message"]))
+            await message.reply("Restard Done")
 
 
 bot_cog_load(bot)

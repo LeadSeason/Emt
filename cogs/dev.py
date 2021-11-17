@@ -4,6 +4,7 @@ import os
 import subprocess
 import re
 import traceback
+import json
 # cog dev
 
 
@@ -61,8 +62,22 @@ class dev(commands.Cog):
 
     @dev.command()
     async def restart(self, ctx):
-        await ctx.send("Shutting down")
-        await self.bot.logout()
+        print(ctx.message.id)
+
+        try:
+            os.stat("./cache/")
+        except FileNotFoundError:
+            os.mkdir("./cache/")
+        data = {"message": str(ctx.message.id),
+                "guild": str(ctx.guild.id),
+                "channel": str(ctx.channel.id),
+                "usr": str(ctx.author.id)
+                }
+        with open("./cache/restart.json", 'w', encoding='utf8') as io:
+            json.dump(data, io, ensure_ascii=False)
+
+        await ctx.send("Restarting ...")
+        await self.bot.close()
 
     @dev.command(name="update", aliases=["up"])
     async def _git(self, ctx, *arg):

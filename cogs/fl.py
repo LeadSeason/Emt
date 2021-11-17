@@ -77,11 +77,11 @@ class fl(commands.Cog):
         data.update({date: list_food})
 
         try:
-            os.stat("./data/")
+            os.stat("./cache/")
         except FileNotFoundError:
-            os.mkdir("./data/")
+            os.mkdir("./cache/")
 
-        with open("./data/foods.json", 'w', encoding='utf8') as f:
+        with open("./cache/foods.json", 'w', encoding='utf8') as f:
             json.dump(data, f, ensure_ascii=False)
             # json.dump(data, f, indent=4, ensure_ascii=False)
         return "success"
@@ -91,7 +91,7 @@ class fl(commands.Cog):
         try:
             skip = False
             try:
-                file_stat = os.stat("./data/foods.json").st_mtime
+                file_stat = os.stat("./cache/foods.json").st_mtime
 
             except FileNotFoundError:
                 h = await self.genjson()
@@ -226,7 +226,7 @@ class fl(commands.Cog):
                 skip = True
 
             if not skip:
-                with open("./data/foods.json", encoding='utf-8') as s:
+                with open("./cache/foods.json", encoding='utf-8') as s:
                     foodlist = json.load(s)
 
                 if "" in foodlist:
