@@ -195,10 +195,6 @@ class fl(commands.Cog):
                                 dates.append("pe")
                         else:
                             pass
-                elif date in tomorrow_args:
-                    
-                else:
-                    pass
 
             args = dates
 
