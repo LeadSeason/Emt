@@ -1,17 +1,16 @@
-import json
 import importlib
 import os
 from discord.ext import commands
 import subprocess
+from dotenv import load_dotenv
 
 
 class CogDisabled(Exception):
     pass
 
 
-def get_conf(arg):
-    with open("./conf/discord.conf.json") as discord_conf:
-        return json.load(discord_conf)[arg]
+def getconf(arg):
+    return os.environ.get(arg)
 
 
 def bot_cog_load(bot):
@@ -67,13 +66,15 @@ def bot_cog_load(bot):
             print(f"""Enabled : Cogs: "{_cog_name}" loaded""")
 
 
-if get_conf("Update_on_start") is True:
+load_dotenv()
+
+if getconf("UPDATE_ON_START") is True:
     print("updating...")
     p = subprocess.Popen(["git", "pull"])
     p.wait()
 
 bot = commands.Bot(
-    command_prefix=get_conf("prefix"),
+    command_prefix=getconf("PREFIX"),
     case_insensitive=True,
     self_bot=False,
     help_command=None
@@ -86,4 +87,4 @@ async def on_ready():
 
 
 bot_cog_load(bot)
-bot.run(str(get_conf("token")))
+bot.run(str(getconf("TOKEN")))
