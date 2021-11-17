@@ -4,4 +4,4 @@
 /data/*
 /logs
 /.trash
-/conf.yml
+/.env
