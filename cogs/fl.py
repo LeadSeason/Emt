@@ -47,32 +47,27 @@ class fl(commands.Cog):
         date = ""
         data = {}
         for x in food_list:
-            if "MAANANTAI".lower() in x.lower():
-
+            x = x.lower()
+            if "maanantai" in x:
                 list_food = []
                 date = "ma"
                 list_food.append(x)
-            elif "TIISTAI".lower() in x.lower():
+            elif "tiistai" in x or "laskiaistiistai" in x:
                 data.update({date: list_food})
                 list_food = []
                 date = "ti"
                 list_food.append(x)
-            elif "LASKIAISTIISTAI".lower() in x.lower():
-                data.update({date: list_food})
-                list_food = []
-                date = "ti"
-                list_food.append(x)
-            elif "KESKIVIIKKO".lower() in x.lower():
+            elif "keskiviikko" in x:
                 data.update({date: list_food})
                 list_food = []
                 date = "ke"
                 list_food.append(x)
-            elif "TORSTAI".lower() in x.lower():
+            elif "torstai" in x:
                 data.update({date: list_food})
                 list_food = []
                 date = "to"
                 list_food.append(x)
-            elif "PERJANTA".lower() in x.lower():
+            elif "perjanta" in x:
                 data.update({date: list_food})
                 list_food = []
                 date = "pe"
@@ -127,6 +122,7 @@ class fl(commands.Cog):
             to_args = ["torstai", "to", "thu", "thur", "thurs", "thursday"]
             pe_args = ["perjantai", "pe", "fri", "friday"]
             today_args = ["today", "tänään"]
+            tomorrow_args = ["tomorrow", "huomenna"]
             help_args = ["help", "apua", "h", "?"]
 
             for input_arg in args:
@@ -167,22 +163,40 @@ class fl(commands.Cog):
                         pass
                     else:
                         dates.append("help")
+
                 elif date in today_args:
                     if "today" in dates:
                         pass
                     else:
                         if datetime.datetime.today().weekday() == 0:
-                            dates.append("ma")
+                            if "ma" in dates:
+                                pass
+                            else:
+                                dates.append("ma")
                         elif datetime.datetime.today().weekday() == 1:
-                            dates.append("ti")
+                            if "ti" in dates:
+                                pass
+                            else:
+                                dates.append("ti")
                         elif datetime.datetime.today().weekday() == 2:
-                            dates.append("ke")
+                            if "ke" in dates:
+                                pass
+                            else:
+                                dates.append("ke")
                         elif datetime.datetime.today().weekday() == 3:
-                            dates.append("to")
+                            if "to" in dates:
+                                pass
+                            else:
+                                dates.append("to")
                         elif datetime.datetime.today().weekday() == 4:
-                            dates.append("pe")
+                            if "pe" in dates:
+                                pass
+                            else:
+                                dates.append("pe")
                         else:
                             pass
+                elif date in tomorrow_args:
+                    
                 else:
                     pass
 
