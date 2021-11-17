@@ -1,4 +1,4 @@
-discord
+pycord
 bs4
 requests
 uwuify
