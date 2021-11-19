@@ -1,11 +1,11 @@
 import importlib
 import os
 import discord
-from discord import message
 from discord.ext import commands
 import subprocess
 from dotenv import load_dotenv
 import json
+
 
 class CogDisabled(Exception):
     pass
@@ -90,10 +90,11 @@ async def on_ready():
         with open("./cache/restart.json") as io:
             data = json.load(io)
             os.remove("./cache/restart.json")
-            user = await bot.fetch_user(int(data["usr"]))
-            print(user.name)
-            message = await user.fetch_message(int(data["message"]))
-            await message.reply("Restard Done")
+            guild = bot.get_guild(int(data["guild"]))
+            member = await guild.fetch_member(int(data["usr"]))
+            channel = guild.get_channel(int(data["channel"]))
+            message = discord.utils.get(await channel.history(limit=100).flatten(), author=member)
+            await message.reply("Restart Done", mention_author=False)
 
 
 bot_cog_load(bot)
