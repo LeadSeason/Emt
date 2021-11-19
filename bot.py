@@ -1,10 +1,12 @@
 import importlib
+import json
 import os
+import subprocess
+import sys
+
 import discord
 from discord.ext import commands
-import subprocess
 from dotenv import load_dotenv
-import json
 
 
 class CogDisabled(Exception):
@@ -96,7 +98,21 @@ async def on_ready():
             message = discord.utils.get(await channel.history(limit=100).flatten(), author=member)
             await message.reply("Restart Done", mention_author=False)
 
-
-bot_cog_load(bot)
-bot.run(str(getconf("TOKEN")))
-# test
+token = getconf("TOKEN")
+print(token)
+if token == "None":
+    bot_cog_load(bot)
+    bot.run(token)
+else:
+    if os.path.isfile(".env"):
+        print("Fatal: Token needed to start bot")
+        sys.exit("1")
+    print(".env file not present creating")
+    with open(".env", "w") as io:
+        io.write(
+            """TOKEN=TOKEN HERE
+            PREFIX="/"
+            YTAPI=YT Api key here
+            UPDATE_ON_START=True
+            """
+        )
