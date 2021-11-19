@@ -99,3 +99,4 @@ async def on_ready():
 
 bot_cog_load(bot)
 bot.run(str(getconf("TOKEN")))
+# test
