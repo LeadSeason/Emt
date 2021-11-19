@@ -1,17 +1,18 @@
-import json
 import importlib
 import os
+import discord
 from discord.ext import commands
 import subprocess
+from dotenv import load_dotenv
+import json
 
 
 class CogDisabled(Exception):
     pass
 
 
-def get_conf(arg):
-    with open("./conf/discord.conf.json") as discord_conf:
-        return json.load(discord_conf)[arg]
+def getconf(arg):
+    return os.environ.get(arg)
 
 
 def bot_cog_load(bot):
@@ -67,13 +68,15 @@ def bot_cog_load(bot):
             print(f"""Enabled : Cogs: "{_cog_name}" loaded""")
 
 
-if get_conf("Update_on_start") is True:
+load_dotenv()
+
+if getconf("UPDATE_ON_START") is True:
     print("updating...")
     p = subprocess.Popen(["git", "pull"])
     p.wait()
 
 bot = commands.Bot(
-    command_prefix=get_conf("prefix"),
+    command_prefix=getconf("PREFIX"),
     case_insensitive=True,
     self_bot=False,
     help_command=None
@@ -83,7 +86,16 @@ bot = commands.Bot(
 @bot.event
 async def on_ready():
     print(f"Logged in as {bot.user}")
+    if os.path.isfile("./cache/restart.json"):
+        with open("./cache/restart.json") as io:
+            data = json.load(io)
+            os.remove("./cache/restart.json")
+            guild = bot.get_guild(int(data["guild"]))
+            member = await guild.fetch_member(int(data["usr"]))
+            channel = guild.get_channel(int(data["channel"]))
+            message = discord.utils.get(await channel.history(limit=100).flatten(), author=member)
+            await message.reply("Restart Done", mention_author=False)
 
 
 bot_cog_load(bot)
-bot.run(str(get_conf("token")))
+bot.run(str(getconf("TOKEN")))
