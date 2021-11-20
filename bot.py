@@ -99,8 +99,8 @@ async def on_ready():
             await message.reply("Restart Done", mention_author=False)
 
 token = getconf("TOKEN")
-print(token)
-if token == "None":
+
+if not token == "None":
     bot_cog_load(bot)
     bot.run(token)
 else:
