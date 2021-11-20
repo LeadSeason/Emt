@@ -111,8 +111,8 @@ else:
     with open(".env", "w") as io:
         io.write(
             """TOKEN=TOKEN HERE
-            PREFIX="/"
-            YTAPI=YT Api key here
-            UPDATE_ON_START=True
+PREFIX="/"
+YTAPI=YT Api key here
+UPDATE_ON_START=True
             """
         )
