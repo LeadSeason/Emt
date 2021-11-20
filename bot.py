@@ -72,7 +72,7 @@ def bot_cog_load(bot):
 
 load_dotenv()
 
-if getconf("UPDATE_ON_START") is True:
+if str(getconf("UPDATE_ON_START")).lower() == "true":
     print("updating...")
     p = subprocess.Popen(["git", "pull"])
     p.wait()
