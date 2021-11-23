@@ -1,3 +1,4 @@
+import os
 from discord.ext import commands
 import discord
 import random
@@ -8,6 +9,8 @@ import json
 import string
 import aiohttp
 import aiofiles
+from dotenv import load_dotenv
+import os
 
 # cog commands
 
@@ -90,8 +93,9 @@ class command(commands.Cog):
 
     @commands.command(aliases=["ryt"])
     async def randomytvid(self, ctx):
-        async with aiofiles.open("./conf/discord.conf.json") as f:
-            API_KEY = json.loads(await f.read())["ytapi"]
+        load_dotenv()
+        # idk if this is good for async but what ever 🤷
+        API_KEY = os.environ.get("YTAPI")
 
         rand = "".join(random.choice(string.ascii_letters + string.digits) for _ in range(3))
         url = f"https://www.googleapis.com/youtube/v3/search?key={API_KEY}&maxResults=1&part=snippet&type=video&q={rand}"
